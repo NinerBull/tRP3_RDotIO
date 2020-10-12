@@ -7,6 +7,6 @@ Requires both [Total RP 3](https://github.com/Total-RP/Total-RP-3) and [Raider.I
 
 You can configure the addon in Total RP 3's config window, under 'Settings' > 'Raider.IO'.
 
--You can toggle showing M+ Score and Raid Progress.
--You can toggle hiding Raider.IO info when you are IC (In Character).
+<ul><li>You can toggle showing M+ Score and Raid Progress.</li>
+<li>You can toggle hiding Raider.IO info when you are IC (In Character).</li></ul>
 
