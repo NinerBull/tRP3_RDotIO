@@ -161,6 +161,7 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 											varPlayerPrevSeason = true
 											varPlayerPrevSeasonLabel = "Current "
 										end
+										
 									end
 									
 									if (varPlayerScore and varPlayerScore ~= 0) then
@@ -172,7 +173,12 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 									if (varPlayerPrevSeason) then	
 										varPlayerScorePrev = "±" .. thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['score']
 										varPlayerScorePrevNum = thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['score']
-										TRP3_CharacterTooltip:AddDoubleLine("Best M+ Score", varPlayerScorePrev, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerScorePrevNum));
+										varPlayerScorePrevSeason = ""
+										if (thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season']) then
+											varPlayerScorePrevSeason = " (S" .. thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season'] .. ")"
+										end
+										
+										TRP3_CharacterTooltip:AddDoubleLine("Best M+ Score" .. varPlayerScorePrevSeason, varPlayerScorePrev, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerScorePrevNum));
 										fixFontsTrp3RIO()
 									end
 									
@@ -206,7 +212,13 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 										if (varPlayerMainPrevSeason and thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['score'] > varPlayerScore) then	
 											varPlayerMainScorePrev = "±" .. thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['score']
 											varPlayerMainScorePrevNum = thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['score']
-											TRP3_CharacterTooltip:AddDoubleLine("Main's Best M+ Score", varPlayerMainScorePrev, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerMainScorePrevNum));
+											
+											varPlayerMainScorePrevSeason = ""
+											if (thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['season']) then
+												varPlayerMainScorePrevSeason = " (S" .. thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['season'] .. ")"
+											end
+											
+											TRP3_CharacterTooltip:AddDoubleLine("Main's Best M+ Score" .. varPlayerMainScorePrevSeason, varPlayerMainScorePrev, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerMainScorePrevNum));
 											fixFontsTrp3RIO()
 										end
 									
