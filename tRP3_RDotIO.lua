@@ -581,8 +581,8 @@ end
 
 TRP3_API.module.registerModule({
 	name = "Raider.IO Info Tooltips",
-	description = "(Unofficial) Adds Raider.io Information to Total RP3's tooltips.",
-	version = 1.2,
+	description = "(Unofficial) Adds Raider.IO Information to Total RP3's tooltips.",
+	version = 1.3.5,
 	id = "trp3_riotooltips",
 	onStart = trp3rioinit,
 	minVersion = 60,
