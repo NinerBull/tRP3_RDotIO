@@ -120,6 +120,7 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 						
 				if (thisPlayerTables) then
 				
+				
 				if (thisPlayerTables["success"] == true) then
 				
 					loadedstuff = false
@@ -582,7 +583,7 @@ end
 TRP3_API.module.registerModule({
 	name = "Raider.IO Info Tooltips",
 	description = "(Unofficial) Adds Raider.IO Information to Total RP3's tooltips.",
-	version = 1.3.5,
+	version = 1.36,
 	id = "trp3_riotooltips",
 	onStart = trp3rioinit,
 	minVersion = 60,
