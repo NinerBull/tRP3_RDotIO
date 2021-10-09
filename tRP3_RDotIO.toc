@@ -1,6 +1,6 @@
 ## Interface: 90100
 ## Title: Total RP 3: Raider.IO Tooltip
-## Version: 1.3.7
+## Version: 1.3.8
 ## Notes: This AddOn allows the Total RP 3 tooltip to show Raider.IO info.
 ## Author: Conine Spiritwolf
 ## SavedVariables: tRP3RIOX

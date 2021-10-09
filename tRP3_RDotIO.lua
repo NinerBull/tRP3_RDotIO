@@ -32,9 +32,8 @@ local function fixFontsTrp3RIO (dummy)
 
 end
 
-
-
 --For debug
+
 --[[
 local function tprint (t, s)
     for k, v in pairs(t) do
@@ -53,7 +52,7 @@ local function tprint (t, s)
         end
     end
 end
---]]
+]]
 
 -- variable for trp3 config
 
@@ -109,6 +108,29 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 			
 			thisName, thisRealm = thisPlayerString:match("([^,]+)-([^,]+)")
 			
+			
+			--unset variables
+			varPlayerScore = ""
+			varPlayerScorePrevNum = ""
+			varPlayerMainScore = ""
+			varPlayerMainScorePrev = ""
+			strRaidProgress = ""
+			strRaidMainProgress = ""
+			strRaidProgressPrevious = ""
+			varRaidName = ""
+			varRaidNamePrevious = ""
+			varPlayerScore = 0
+			varPlayerScoreNum = 0
+			varPlayerScorePrev = 0
+			varPlayerScorePrevNum = 0
+			varPlayerMainScore = 0
+			varPlayerMainScorePrev = 0
+			varPlayerMainScorePrevNum = 0
+			varRaidNumNormal = 0
+			varRaidNumHeroic = 0
+			varRaidNumMythic = 0
+
+			
 
 			
 			if showtooltip then
@@ -116,7 +138,7 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 			
 					thisPlayerTables = RaiderIO.GetProfile(thisName, thisRealm, thisFactionID)
 					
-				
+		
 						
 				if (thisPlayerTables) then
 				
@@ -132,12 +154,6 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 					--This player has a Raider.io Profile
 								
 								
-					TRP3_CharacterTooltip:AddDoubleLine(" ", " ", 100, 100, 0)
-					TRP3_CharacterTooltip:AddDoubleLine("Raider.IO", " ", 100, 100, 0)
-					fixFontsTrp3RIO()
-					
-				
-				
 				
 				
 				---------------------------------------------------
@@ -165,22 +181,23 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 										
 									end
 									
-									if (varPlayerScore and varPlayerScore ~= 0) then
-										TRP3_CharacterTooltip:AddDoubleLine(varPlayerPrevSeasonLabel .. "M+ Score", varPlayerScore, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerScoreNum));
-										fixFontsTrp3RIO()
-									end
+									
 									
 									
 									if (varPlayerPrevSeason) then	
+									
+									
+									
 										varPlayerScorePrev = "±" .. thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['score']
 										varPlayerScorePrevNum = thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['score']
 										varPlayerScorePrevSeason = ""
-										if (thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season']) then
+										if (thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season'] and thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season'] ~= 0) then
 											varPlayerScorePrevSeason = " (S" .. thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season'] .. ")"
 										end
 										
-										TRP3_CharacterTooltip:AddDoubleLine("Best M+ Score" .. varPlayerScorePrevSeason, varPlayerScorePrev, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerScorePrevNum));
-										fixFontsTrp3RIO()
+										
+										
+										
 									end
 									
 									
@@ -203,11 +220,7 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 											end
 										end
 										
-										-- Only show if main's score is higher than this char's score
-										if (varPlayerMainScore and varPlayerMainScore ~= 0 and varPlayerMainScore > varPlayerScore) then
-											TRP3_CharacterTooltip:AddDoubleLine("Main's " .. varPlayerMainPrevSeasonLabel .. "M+ Score", varPlayerMainScore, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerScoreNum));
-											fixFontsTrp3RIO()
-										end
+										
 										
 										
 										if (varPlayerMainPrevSeason and thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['score'] > varPlayerScore) then	
@@ -215,12 +228,13 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 											varPlayerMainScorePrevNum = thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['score']
 											
 											varPlayerMainScorePrevSeason = ""
-											if (thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['season']) then
+											if (thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['season'] and thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['season'] ~= 0) then
 												varPlayerMainScorePrevSeason = " (S" .. thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['season'] .. ")"
 											end
 											
-											TRP3_CharacterTooltip:AddDoubleLine("Main's Best M+ Score" .. varPlayerMainScorePrevSeason, varPlayerMainScorePrev, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerMainScorePrevNum));
-											fixFontsTrp3RIO()
+											
+										
+											
 										end
 									
 
@@ -247,19 +261,10 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 								--Raid Data
 								
 						
-								
-								
-								
-								strRaidProgress = ""
-								strRaidProgressPrevious = ""
-								strRaidMainProgress = ""
-								strRaidMainProgressPrevious = ""
-								
-								varRaidNumNormal = 0
-								varRaidNumHeroic = 0
-								varRaidNumMythic = 0
-								
+						
 								 if (thisPlayerTables['raidProfile']) then
+								 
+								 --tprint(thisPlayerTables['raidProfile'])
 								
 								for z=1,3  do
 								
@@ -424,23 +429,6 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 								
 			
 			
-								if (strRaidProgress ~= "") then
-								
-									TRP3_CharacterTooltip:AddDoubleLine(varRaidName .. " Progress" , strRaidProgress, 0.8, 0.8, 0.8 );
-								
-									fixFontsTrp3RIO()
-									
-								
-								end
-								
-								if (strRaidMainProgress ~= "") then
-								
-									TRP3_CharacterTooltip:AddDoubleLine("Main's " .. varRaidName .. " Progress" , strRaidMainProgress, 0.8, 0.8, 0.8 );
-								
-									fixFontsTrp3RIO()
-									
-								
-								end
 								
 								
 								
@@ -449,15 +437,7 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 								
 							
 								
-								if (strRaidProgressPrevious ~= "" and strRaidProgress == "") then
-									-- only show previous progress if nothing in current progress, useful when there's only 1 raid in current tier
 								
-									TRP3_CharacterTooltip:AddDoubleLine(varRaidNamePrevious .. " Progress" , strRaidProgressPrevious, 0.8, 0.8, 0.8 );
-									
-									fixFontsTrp3RIO()
-									
-								
-								end
 								
 								
 								
@@ -480,9 +460,113 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 					
 				end
 				
+				
+				
+				-- Check to see if any of the strings have data in them. If so, show the RIO stuff.
+				
+				
+			if ((varPlayerScore and varPlayerScore ~= 0) or (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0) or (varPlayerMainScore and varPlayerMainScore ~= 0 and varPlayerMainScore > varPlayerScore) or (varPlayerMainScorePrev ~= 0) or (strRaidProgress ~= "") or (strRaidMainProgress ~= "") or (strRaidProgressPrevious ~= "" and strRaidProgress == "")) then
+				
+					TRP3_CharacterTooltip:AddDoubleLine(" ", " ", 100, 100, 0)
+					TRP3_CharacterTooltip:AddDoubleLine("Raider.IO", " ", 100, 100, 0)
+					fixFontsTrp3RIO()
+			
+			
+					
+						
+					if (varPlayerScore and varPlayerScore ~= 0) then
+					
+						varPrevSeasonM = true
+						if (varPlayerPrevSeasonLabel == "") then
+							varPrevSeasonM = false
+						end
+					
+						TRP3_CharacterTooltip:AddDoubleLine(varPlayerPrevSeasonLabel .. "M+ Score", varPlayerScore, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerScoreNum, varPrevSeasonM));
+						fixFontsTrp3RIO()
+						
+					end
+					
+					
+					if (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0) then
+						
+							TRP3_CharacterTooltip:AddDoubleLine("Best M+ Score" .. varPlayerScorePrevSeason, varPlayerScorePrev, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerScorePrevNum, true));
+						fixFontsTrp3RIO()
+						
+						
+						
+					end
+					
+					-- Only show if main's score is higher than this char's score
+					if (varPlayerMainScore and varPlayerMainScore ~= 0 and varPlayerMainScore > varPlayerScore) then
+					
+						varPrevSeasonMainM = true
+						if (varPlayerMainPrevSeasonLabel == "") then
+							varPrevSeasonMainM = false
+						end
+					
+						TRP3_CharacterTooltip:AddDoubleLine("Main's " .. varPlayerMainPrevSeasonLabel .. "M+ Score", varPlayerMainScore, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerMainScore, varPrevSeasonMainM));
+						fixFontsTrp3RIO()
+						
+					end
+					
+					
+					if (varPlayerMainScorePrev ~= 0) then
+							TRP3_CharacterTooltip:AddDoubleLine("Main's Best M+ Score" .. varPlayerMainScorePrevSeason, varPlayerMainScorePrev, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerMainScorePrevNum, true));
+							fixFontsTrp3RIO()
+					end
+					
+					if (strRaidProgress ~= "") then
+										
+						TRP3_CharacterTooltip:AddDoubleLine(varRaidName .. " Progress" , strRaidProgress, 0.8, 0.8, 0.8 );
+						fixFontsTrp3RIO()
+						
+						
+					
+					end
+					
+					if (strRaidMainProgress ~= "") then
+					
+						TRP3_CharacterTooltip:AddDoubleLine("Main's " .. varRaidName .. " Progress" , strRaidMainProgress, 0.8, 0.8, 0.8 );
+					
+						fixFontsTrp3RIO()
+											
+										
+					end
+						
+						
+					if (strRaidProgressPrevious ~= "" and strRaidProgress == "") then
+							-- only show previous progress if nothing in current progress, useful when there's only 1 raid in current tier
+						
+							TRP3_CharacterTooltip:AddDoubleLine(varRaidNamePrevious .. " Progress" , strRaidProgressPrevious, 0.8, 0.8, 0.8 );
+							
+							fixFontsTrp3RIO()
+							
+						
+					end
+				
+			
+				
+				end -- eo print to tooltip
+				
+				
+				
+				
+				
 				end
 				
+				
+				
+				
+				
+				
+				
 				end --eo showtooltip
+				
+				
+				
+				
+				
+				
 				 
 				TRP3_CharacterTooltip:Show()
 				TRP3_CharacterTooltip:GetTop()
@@ -490,8 +574,7 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 	
 				
 			
-			end)
-			
+			end)		
 			
 			
 		end
