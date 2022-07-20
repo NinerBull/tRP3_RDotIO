@@ -52,7 +52,7 @@ local function tprint (t, s)
         end
     end
 end
-]]
+]]--
 
 -- variable for trp3 config
 
@@ -89,6 +89,8 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 			--local thisPlayerGUID = UnitGUID("mouseover")
 			
 			--thisLocalizedClass, thisEnglishClass, thisLocalizedRace, thisEnglishRace, thisSex, thisName, thisRealm = GetPlayerInfoByGUID(thisPlayerGUID)
+			
+			--[[
 			thisRaceName, thisRaceFile, thisRaceID = UnitRace("mouseover")
 			--thisFaction = C_CreatureInfo.GetFactionInfo(thisRaceID)
 			thisEnglishFaction, thisLocalizedFaction = UnitFactionGroup("mouseover")
@@ -107,6 +109,9 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 			thisPlayerString = TRP3_CharacterTooltip['target']
 			
 			thisName, thisRealm = thisPlayerString:match("([^,]+)-([^,]+)")
+			]]--
+			
+			
 			
 			
 			--unset variables
@@ -135,10 +140,12 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 			
 			if showtooltip then
 				
-			
-					thisPlayerTables = RaiderIO.GetProfile(thisName, thisRealm, thisFactionID)
-					
 		
+			
+					--thisPlayerTables = RaiderIO.GetProfile(thisName, thisRealm, thisFactionID)
+					
+					thisPlayerTables = RaiderIO.GetProfile("mouseover")
+					
 						
 				if (thisPlayerTables) then
 				
@@ -147,9 +154,11 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 				
 					loadedstuff = false
 					
-					--if (thisPlayerTables['mythicKeystoneProfile']['mplusMainCurrent']) then
-					--tprint(thisPlayerTables['mythicKeystoneProfile']['mplusMainCurrent'])
-					--end				
+					--[[
+					if (thisPlayerTables['mythicKeystoneProfile']['mplusMainCurrent']) then
+					tprint(thisPlayerTables)
+					end	
+					]]--					
 				
 					--This player has a Raider.io Profile
 								
