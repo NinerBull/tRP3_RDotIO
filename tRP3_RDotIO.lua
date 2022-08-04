@@ -201,7 +201,7 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 										varPlayerScorePrevNum = thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['score']
 										varPlayerScorePrevSeason = ""
 										if (thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season'] and thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season'] ~= 0) then
-											varPlayerScorePrevSeason = " (S" .. thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season'] .. ")"
+											varPlayerScorePrevSeason = " (S" .. (1 + thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season']) .. ")"
 										end
 										
 										
@@ -238,7 +238,7 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 											
 											varPlayerMainScorePrevSeason = ""
 											if (thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['season'] and thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['season'] ~= 0) then
-												varPlayerMainScorePrevSeason = " (S" .. thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['season'] .. ")"
+												varPlayerMainScorePrevSeason = " (S" .. (1 + thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['season']) .. ")"
 											end
 											
 											
