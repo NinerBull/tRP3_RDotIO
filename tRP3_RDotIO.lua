@@ -138,6 +138,9 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 			tblRaidMainProgress = nil
 			tblRaidProgressPrev = nil
 			
+			
+		if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP)) then
+			
 			if showtooltip then
 				
 		
@@ -845,8 +848,14 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 				
 				end --eo showtooltip
 				
-				
-				
+			
+			else --end of mini tooltip
+			
+			RaiderIO.ShowProfile(TRP3_CharacterTooltip, "mouseover")
+			fixFontsTrp3RIO()
+			
+			
+			end --end of main tooltip
 				
 				
 				
@@ -883,12 +892,14 @@ end)
 TRPRIOTOOLTIPS.CONFIG = {};
 
 TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC = "trp3_riotooltips_hide_tooltips_ic";
+TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP = "trp3_riotooltips_enable_mini_tooltip";
 TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE = "trp3_riotooltips_enable_score";
 TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE = "trp3_riotooltips_enable_raid";
 TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN = "trp3_riotooltips_enable_score_main";
 TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE_MAIN = "trp3_riotooltips_enable_raid_main";
 
 TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC, false);
+TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP, true);
 TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE, true);
 TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE, true);
 TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN, true);
@@ -908,27 +919,35 @@ TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
+				title = "Use minified Raider.IO Tooltip formatting",
+				help = "If this is ticked, the addon's minified formatting will be used instead of the original Raider.IO Tooltip info.",
+				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP
+			},
+			{
+				inherit = "TRP3_ConfigCheck",
 				title = "Show Raider.IO Score",
-				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE
+				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE,
+				dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
 				title = "Show Raid Progress",
-				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE
+				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE,
+				dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
 				title = "Show Main's Raider.IO Score",
 				help = "Show the character's main's Raider.IO score, if available.",
 				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN,
-				dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE },
+				dependentOnOptions = { (TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE and TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP) },
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
 				title = "Show Main's Raid Progress",
 				help = "Show the character's main's Raid Progress, if available.",
 				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE_MAIN,
-				dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE },
+				dependentOnOptions = { (TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE and TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP) },
 			}
 			
 		}
