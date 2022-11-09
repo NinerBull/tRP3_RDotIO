@@ -1,5 +1,5 @@
 local trp3rio = CreateFrame("Frame")
-trp3rio:RegisterEvent("ADDON_LOADED")
+--trp3rio:RegisterEvent("ADDON_LOADED")
 trp3rio:RegisterEvent("PLAYER_LOGIN")
 trp3rio:RegisterEvent("PLAYER_LOGOUT")
 trp3rio:RegisterEvent("PLAYER_ENTERING_WORLD")
