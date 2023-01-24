@@ -914,13 +914,13 @@ TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE
 			{
 				inherit = "TRP3_ConfigCheck",
 				title = "Hide Raider.IO Tooltips when IC",
-				help = "If this is ticked, Raider.IO info will not be shown when you are IC (In Character).",
+				help = "If checked, disables showing Raider.IO info on tooltips when you are IC (In Character).",
 				configKey = TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
 				title = "Use minified Raider.IO Tooltip formatting",
-				help = "If this is ticked, the addon's minified formatting will be used instead of the original Raider.IO Tooltip info.",
+				help = "If checked, the addon's minified formatting will be used instead of the original Raider.IO tooltip info.",
 				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP
 			},
 			{
@@ -966,9 +966,9 @@ end
 
 
 TRP3_API.module.registerModule({
-	name = "Raider.IO Info Tooltips",
-	description = "(Unofficial) Adds Raider.IO Information to Total RP3's tooltips.",
-	version = 1.36,
+	name = "Raider.IO Info Tooltip",
+	description = "(Unofficial) Adds Raider.IO Information to Total RP 3's tooltips.",
+	version = "1.4.3",
 	id = "trp3_riotooltips",
 	onStart = trp3rioinit,
 	minVersion = 60,
