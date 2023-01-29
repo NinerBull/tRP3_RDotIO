@@ -1,16 +1,29 @@
 # R.IO Info in TRP3 Tooltips
+An addon for World of Warcraft Dragonflight!
 
-For Roleplayers who also like to do PVE, this addon allows Raider.IO information such as M+ Score and Raid Progress to be shown in Total RP 3's Tooltips.
-It lays out the info in a neat style so as to not distract from the Character's RP info from the tooltip.
+## About
+This addon enables [Raider.IO](https://github.com/RaiderIO/raiderio-addon)'s tooltip functionality to work with [Total RP 3](https://github.com/Total-RP/Total-RP-3) tooltips.
 
-Requires both [Total RP 3](https://github.com/Total-RP/Total-RP-3) and [Raider.IO](https://github.com/RaiderIO/raiderio-addon) to be installed. I am not affiliated with either project.
+By default it uses a minimalistic style to lay out the most important info, Mythic+ Rating and Raid Progress, in order to not bloat the tooltip too much. You can hoewever choose to use Raider.IO's original tooltip formatting too.
 
-You can configure the addon in Total RP 3's config window, under 'Settings' > 'Raider.IO'.
+## Compatibility
+* *Dragonflight* - 10.0.5
 
-<ul>
-<li>You can toggle showing M+ Score and Raid Progress.</li>
-<li>You can toggle hiding Raider.IO info when you are IC (In Character).</li>
-<li>You can toggle whether the addon's minified formatting will be used instead of the original Raider.IO Tooltip info.</li>
-</ul>
+*REQUIRES* both [Total RP 3](https://github.com/Total-RP/Total-RP-3) and [Raider.IO](https://github.com/RaiderIO/raiderio-addon) to be installed.
 
-Also Available on [WoWInterface](https://www.wowinterface.com/downloads/info25708-R.IOInfoinTRP3Tooltips.html) and [CurseForge](https://www.curseforge.com/wow/addons/raider-io-total-rp-3-tooltips)
+
+## Installation
+Download the latest version from one of the places below, and unzip it in your `<warcraft>\<_version_>\Interface\Addons` folder if installing manually.
+
+* [CurseForge](https://www.curseforge.com/wow/addons/raider-io-total-rp-3-tooltips)
+* [WoWInterface](https://www.wowinterface.com/downloads/info25708-R.IOInfoinTRP3Tooltips.html)
+* [GitHub](/NinerBull/tRP3_RDotIO	/releases/latest)
+* Or put `https://github.com/NinerBull/tRP3_RDotIO` into your favourite Addon Manager
+
+
+## Configuration
+A new area will be added into Total RP 3's Config Wunder, under 'Settings' > 'Raider.IO'.
+
+* You can toggle hiding Raider.IO info when you are IC (In Character).
+* You can toggle showing M+ Score and Raid Progress.
+* You can toggle whether the addon's minified formatting will be used instead of the original Raider.IO Tooltip info.
