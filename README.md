@@ -4,7 +4,7 @@ An addon for World of Warcraft Dragonflight!
 ## About
 This addon enables [Raider.IO](https://github.com/RaiderIO/raiderio-addon)'s tooltip functionality to work with [Total RP 3](https://github.com/Total-RP/Total-RP-3) tooltips.
 
-By default it uses a minimalistic style to lay out the most important info, Mythic+ Rating and Raid Progress, in order to not bloat the tooltip too much. You can hoewever choose to use Raider.IO's original tooltip formatting too.
+By default it uses a minimalistic style to lay out the most important info, Mythic+ Rating and Raid Progress, in order to not bloat the tooltip too much. You can however choose to use Raider.IO's original tooltip formatting instead.
 
 ## Compatibility
 * *Dragonflight* - 10.0.5
