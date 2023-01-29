@@ -7,9 +7,9 @@ This addon enables [Raider.IO](https://github.com/RaiderIO/raiderio-addon)'s too
 By default it uses a minimalistic style to lay out the most important info, Mythic+ Rating and Raid Progress, in order to not bloat the tooltip too much. You can however choose to use Raider.IO's original tooltip formatting instead.
 
 ## Compatibility
-* *Dragonflight* - 10.0.5
+* **Dragonflight** - 10.0.5
 
-*REQUIRES* both [Total RP 3](https://github.com/Total-RP/Total-RP-3) and [Raider.IO](https://github.com/RaiderIO/raiderio-addon) to be installed.
+**REQUIRES** both [Total RP 3](https://github.com/Total-RP/Total-RP-3) and [Raider.IO](https://github.com/RaiderIO/raiderio-addon) to be installed.
 
 
 ## Installation
