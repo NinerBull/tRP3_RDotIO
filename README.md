@@ -22,7 +22,7 @@ Download the latest version from one of the places below, and unzip it in your `
 
 
 ## Configuration
-A new area will be added into Total RP 3's Config Wunder, under 'Settings' > 'Raider.IO'.
+A new area will be added into Total RP 3's Config Window, under 'Settings' > 'Raider.IO'.
 
 * You can toggle hiding Raider.IO info when you are IC (In Character).
 * You can toggle showing M+ Score and Raid Progress.
