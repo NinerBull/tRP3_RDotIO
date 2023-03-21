@@ -1,9 +1,11 @@
 local trp3rio = CreateFrame("Frame")
+--trp3rio:RegisterEvent("ADDON_LOADED")
 trp3rio:RegisterEvent("PLAYER_LOGIN")
 trp3rio:RegisterEvent("PLAYER_LOGOUT")
 trp3rio:RegisterEvent("PLAYER_ENTERING_WORLD")
 
 
+local ignoretooltip = false
 local loadedstuff = false
 
 local normalRaidColor = "|cff1eff00"
@@ -82,7 +84,35 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 				showtooltip = false
 			end
 			
-
+			
+			
+			--local thisPlayerGUID = UnitGUID("mouseover")
+			
+			--thisLocalizedClass, thisEnglishClass, thisLocalizedRace, thisEnglishRace, thisSex, thisName, thisRealm = GetPlayerInfoByGUID(thisPlayerGUID)
+			
+			--[[
+			thisRaceName, thisRaceFile, thisRaceID = UnitRace("mouseover")
+			--thisFaction = C_CreatureInfo.GetFactionInfo(thisRaceID)
+			thisEnglishFaction, thisLocalizedFaction = UnitFactionGroup("mouseover")
+			
+			
+			thisFactionID = 3 --neutral
+			
+			if thisEnglishFaction == "Alliance" then
+				thisFactionID = 1
+			end
+			if thisEnglishFaction == "Horde" then
+				thisFactionID = 2
+			end
+			
+			
+			thisPlayerString = TRP3_CharacterTooltip['target']
+			
+			thisName, thisRealm = thisPlayerString:match("([^,]+)-([^,]+)")
+			]]--
+			
+			
+			
 			
 			--unset variables
 			varPlayerScore = ""
@@ -115,6 +145,7 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 				
 		
 			
+					--thisPlayerTables = RaiderIO.GetProfile(thisName, thisRealm, thisFactionID)
 					
 					thisPlayerTables = RaiderIO.GetProfile("mouseover")
 					
@@ -935,10 +966,32 @@ end
 
 
 TRP3_API.module.registerModule({
-	name = "Raider.IO Tooltip Support",
+	name = "Raider.IO Info Tooltip",
 	description = "(Unofficial) Adds Raider.IO Information to Total RP 3's tooltips.",
 	version = "1.4.3",
 	id = "trp3_riotooltips",
 	onStart = trp3rioinit,
 	minVersion = 60,
 });
+
+
+
+
+
+
+-- Slash Command
+local function trp3RDotIOOpenConfig()
+	TRP3_API.navigation.openMainFrame();
+	TRP3_API.navigation.page.setPage("main_config_aaa_general");
+	TRP3_API.navigation.page.setPage("trp3_riotooltips_config");
+end
+
+local trp3RDotIOOpenConfigCommand = {
+    id = "rio",
+    helpLine = " Open the Raider.IO Tooltip Config.",
+    handler = function()
+        trp3RDotIOOpenConfig();
+    end,
+}
+
+TRP3_API.slash.registerCommand(trp3RDotIOOpenConfigCommand);
