@@ -22,6 +22,8 @@ Download the latest version from one of the places below, and unzip it in your `
 ## Configuration
 A new area will be added into Total RP 3's Config Window, under 'Settings' > 'Raider.IO'.
 
+You can also access the config by typing `/trp3 rio`. 
+
 * You can toggle hiding Raider.IO info when you are IC (In Character).
 * You can toggle showing M+ Score and Raid Progress.
 * You can toggle whether the addon's minified formatting will be used instead of the original Raider.IO Tooltip info.
