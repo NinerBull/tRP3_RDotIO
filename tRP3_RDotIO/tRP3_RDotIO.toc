@@ -10,4 +10,5 @@
 ## X-Website: https://github.com/NinerBull/tRP3_RDotIO
 ## X-Curse-Project-ID: 316956
 ## X-WoWI-ID: 25708
+## IconTexture: Interface\Icons\Achievement_dungeon_heroic_gloryoftheraider.blp
 tRP3_RDotIO.lua
