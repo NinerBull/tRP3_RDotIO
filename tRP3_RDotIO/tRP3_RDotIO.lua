@@ -291,7 +291,7 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 								
 								
 								
-								if (thisPlayerTables['raidProfile']["sortedProgress"][z]["progress"]["raid"]["dungeon"]["shortName"]) then
+								if (thisPlayerTables['raidProfile']["sortedProgress"][z]["progress"]["raid"]["shortName"]) then
 								
 										--print("--------")
 								
@@ -301,7 +301,7 @@ trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
 								
 								
 								
-											varRaidName = thisPlayerTables['raidProfile']["sortedProgress"][z]["progress"]["raid"]["dungeon"]["shortName"]
+											varRaidName = thisPlayerTables['raidProfile']["sortedProgress"][z]["progress"]["raid"]["shortName"]
 	
 											
 													
@@ -968,7 +968,7 @@ end
 TRP3_API.module.registerModule({
 	name = "Raider.IO Info Tooltip",
 	description = "(Unofficial) Adds Raider.IO Information to Total RP 3's tooltips.",
-	version = "1.4.4",
+	version = "1.4.6",
 	id = "trp3_riotooltips",
 	onStart = trp3rioinit,
 	minVersion = 60,
