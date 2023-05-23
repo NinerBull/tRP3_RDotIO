@@ -966,11 +966,12 @@ end
 
 
 TRP3_API.module.registerModule({
-	name = "Raider.IO Info Tooltip",
-	description = "(Unofficial) Adds Raider.IO Information to Total RP 3's tooltips.",
+	name = "Raider.IO Tooltip Support",
+	description = "Allows TRP 3 to show Raider.IO information on the tooltip.",
 	version = "1.4.6",
 	id = "trp3_riotooltips",
 	onStart = trp3rioinit,
+	requiredDeps = { { "RaiderIO", "external" } },
 	minVersion = 60,
 });
 
