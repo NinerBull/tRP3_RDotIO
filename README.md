@@ -4,7 +4,8 @@ An addon for World of Warcraft Dragonflight!
 ## About
 This _unofficial_ module for [Total RP 3](https://github.com/Total-RP/Total-RP-3) enables [Raider.IO](https://github.com/RaiderIO/raiderio-addon)'s tooltip functionality to work with TRP3's custom tooltip.
 
-By default it uses a minimalistic style to lay out the most important info, Mythic+ Rating and Raid Progress, in order to not bloat the tooltip too much. You can however choose to use Raider.IO's original tooltip formatting instead.
+By default, Raider.IO's original tooltip formatting will be used. 
+Alternatively, you can enable a minified tooltip, which contains only Mythic+ Rating and Raid Progress, in order to not bloat the tooltip too much.
 
 ## Compatibility
 * **Dragonflight** - 10.1.0
@@ -24,6 +25,8 @@ A new area will be added into Total RP 3's Config Window, under 'Settings' > 'Ra
 
 You can also access the config by typing `/trp3 rio`. 
 
-* You can toggle hiding Raider.IO info when you are IC (In Character).
-* You can toggle showing M+ Score and Raid Progress.
-* You can toggle whether the addon's minified formatting will be used instead of the original Raider.IO Tooltip info.
+* Toggle Hiding Raider.IO info when you are IC (In Character).
+* Toggle whether to use the original Raider.IO Tooltip formatting, or the addon's minified formatting.
+* Toggle whether M+ Score and/or Raid Progress shows on the minified tooltip.
+
+To configure how the original formatting of the Raider.IO tooltip looks, type `/raiderio`.
