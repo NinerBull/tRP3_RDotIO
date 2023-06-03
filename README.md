@@ -29,4 +29,4 @@ You can also access the config by typing `/trp3 rio`.
 * Toggle whether to use the original Raider.IO Tooltip formatting, or the addon's minified formatting.
 * Toggle whether M+ Score and/or Raid Progress shows on the minified tooltip.
 
-To configure how the original formatting of the Raider.IO tooltip looks, type `/raiderio`.
+To configure how the formatting of the original Raider.IO tooltip looks, type `/raiderio`.
