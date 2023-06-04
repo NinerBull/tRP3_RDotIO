@@ -81,9 +81,21 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 
 		 if TRP3_CharacterTooltip ~= nil then
 		 
+		 
+		 
+		 
+		 
+		 
 			hooksecurefunc(TRP3_CharacterTooltip, "AddDoubleLine", function(t)
 					fixFontsTrp3RIO()
 			end)
+			
+			hooksecurefunc(TRP3_CharacterTooltip, "AddLine", function(t)
+			
+			end)
+			
+			
+			
 				
 		 
 				TRP3_CharacterTooltip:HookScript("OnShow", function(t)
