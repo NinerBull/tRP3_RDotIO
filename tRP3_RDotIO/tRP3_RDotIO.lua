@@ -112,36 +112,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					showtooltip = false
 				end
 				
-				
-				
-				--local thisPlayerGUID = UnitGUID("mouseover")
-				
-				--thisLocalizedClass, thisEnglishClass, thisLocalizedRace, thisEnglishRace, thisSex, thisName, thisRealm = GetPlayerInfoByGUID(thisPlayerGUID)
-				
-				--[[
-				thisRaceName, thisRaceFile, thisRaceID = UnitRace("mouseover")
-				--thisFaction = C_CreatureInfo.GetFactionInfo(thisRaceID)
-				thisEnglishFaction, thisLocalizedFaction = UnitFactionGroup("mouseover")
-				
-				
-				thisFactionID = 3 --neutral
-				
-				if thisEnglishFaction == "Alliance" then
-					thisFactionID = 1
-				end
-				if thisEnglishFaction == "Horde" then
-					thisFactionID = 2
-				end
-				
-				
-				thisPlayerString = TRP3_CharacterTooltip['target']
-				
-				thisName, thisRealm = thisPlayerString:match("([^,]+)-([^,]+)")
-				]]--
-				
-				
-				
-				
+
 				--unset variables
 				varPlayerScore = ""
 				varPlayerScorePrevNum = ""
@@ -165,15 +136,13 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				tblRaidProgress = nil
 				tblRaidMainProgress = nil
 				tblRaidProgressPrev = nil
-				
+								
 				
 			if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP)) then
 				
 				if showtooltip then
 					
 			
-				
-						--thisPlayerTables = RaiderIO.GetProfile(thisName, thisRealm, thisFactionID)
 						
 						thisPlayerTables = RaiderIO.GetProfile("mouseover")
 						
@@ -181,16 +150,12 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					if (thisPlayerTables) then
 					
 					
+					
+					
 					if (thisPlayerTables["success"] == true) then
 					
 						loadedstuff = false
 						
-						--[[
-						if (thisPlayerTables['mythicKeystoneProfile']['mplusMainCurrent']) then
-						tprint(thisPlayerTables)
-						end	
-						]]--	
-					
 					
 						--This player has a Raider.io Profile
 									
@@ -204,6 +169,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE)) then
 									
 							if (thisPlayerTables['mythicKeystoneProfile']) then
+								if (thisPlayerTables['mythicKeystoneProfile']['hasRenderableData'] == true) then
 									
 										--This char
 										varPlayerScore = 0
@@ -281,7 +247,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 
 										end --eo main
 									
-									
+									end
 								end
 					
 					
@@ -496,8 +462,18 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					
 				if ((varPlayerScore and varPlayerScore ~= 0) or (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0) or (varPlayerMainScore and varPlayerMainScore ~= 0 and varPlayerMainScore > varPlayerScore) or (varPlayerMainScorePrev ~= 0) or (tblRaidProgress)) then
 					
-						TRP3_CharacterTooltip:AddDoubleLine(" ", " ", 100, 100, 0)
-						TRP3_CharacterTooltip:AddDoubleLine("Raider.IO", " ", 100, 100, 0)
+					
+						if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER)) then
+							TRP3_CharacterTooltip:AddLine(" ")
+							TRP3_CharacterTooltip:AddLine("|Tinterface\\friendsframe\\ui-friendsframe-onlinedivider:5:320|t")
+						end	
+						
+						TRP3_CharacterTooltip:AddDoubleLine(" ", " ")
+						
+						if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_TITLE)) then					
+							TRP3_CharacterTooltip:AddDoubleLine("Raider.IO", " ", NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+						end
+						
 						--fixFontsTrp3RIO()
 				
 				
@@ -510,7 +486,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 								varPrevSeasonM = false
 							end
 						
-							TRP3_CharacterTooltip:AddDoubleLine(varPlayerPrevSeasonLabel .. "M+ Score", varPlayerScore, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerScoreNum, varPrevSeasonM));
+							TRP3_CharacterTooltip:AddDoubleLine(varPlayerPrevSeasonLabel .. "M+ Score", varPlayerScore,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerScoreNum, varPrevSeasonM));
 							--fixFontsTrp3RIO()
 							
 						end
@@ -518,7 +494,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 						
 						if (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0) then
 							
-								TRP3_CharacterTooltip:AddDoubleLine("Best M+ Score" .. varPlayerScorePrevSeason, varPlayerScorePrev, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerScorePrevNum, true));
+								TRP3_CharacterTooltip:AddDoubleLine("Best M+ Score" .. varPlayerScorePrevSeason, varPlayerScorePrev,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerScorePrevNum, true));
 							--fixFontsTrp3RIO()
 							
 							
@@ -533,14 +509,14 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 								varPrevSeasonMainM = false
 							end
 						
-							TRP3_CharacterTooltip:AddDoubleLine("Main's " .. varPlayerMainPrevSeasonLabel .. "M+ Score", varPlayerMainScore, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerMainScore, varPrevSeasonMainM));
+							TRP3_CharacterTooltip:AddDoubleLine("Main's " .. varPlayerMainPrevSeasonLabel .. "M+ Score", varPlayerMainScore,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerMainScore, varPrevSeasonMainM));
 							--fixFontsTrp3RIO()
 							
 						end
 						
 						
 						if (varPlayerMainScorePrev ~= 0) then
-								TRP3_CharacterTooltip:AddDoubleLine("Main's Best M+ Score" .. varPlayerMainScorePrevSeason, varPlayerMainScorePrev, 0.8, 0.8, 0.8, RaiderIO.GetScoreColor(varPlayerMainScorePrevNum, true));
+								TRP3_CharacterTooltip:AddDoubleLine("Main's Best M+ Score" .. varPlayerMainScorePrevSeason, varPlayerMainScorePrev,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerMainScorePrevNum, true));
 								--fixFontsTrp3RIO()
 						end
 						
@@ -621,7 +597,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 									
 									if (strRaidProgress ~= "") then
 											
-										TRP3_CharacterTooltip:AddDoubleLine(strRaidMainName .. " Progress" , strRaidProgress, 0.8, 0.8, 0.8 );
+										TRP3_CharacterTooltip:AddDoubleLine(strRaidMainName .. " Progress" , strRaidProgress,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b );
 										--fixFontsTrp3RIO()
 										
 										
@@ -712,7 +688,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 									 
 									 if (strRaidMainProgress ~= "") then
 							
-										TRP3_CharacterTooltip:AddDoubleLine("Main's " .. strRaidMainProgressName .. " Progress" , strRaidMainProgress, 0.8, 0.8, 0.8 );
+										TRP3_CharacterTooltip:AddDoubleLine("Main's " .. strRaidMainProgressName .. " Progress" , strRaidMainProgress,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b );
 									
 									--	fixFontsTrp3RIO()
 															
@@ -803,7 +779,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 
 									if (strRaidProgressPrevious ~= "") then
 									
-										TRP3_CharacterTooltip:AddDoubleLine(strRaidProgressPreviousName .. " Progress" , strRaidProgressPrevious, 0.8, 0.8, 0.8 );
+										TRP3_CharacterTooltip:AddDoubleLine(strRaidProgressPreviousName .. " Progress" , strRaidProgressPrevious,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b );
 										
 										--fixFontsTrp3RIO()
 										
@@ -885,16 +861,40 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 							
 					if (thisPlayerTables) then
 					
-					
-						if (thisPlayerTables["success"] == true) then
 						
-							if (thisPlayerTables['raidProfile'] or thisPlayerTables['mythicKeystoneProfile']) then
-							
-								RaiderIO.ShowProfile(TRP3_CharacterTooltip, "mouseover")
-							
+						local showThisTooltip = false
+						
+						if (thisPlayerTables['raidProfile'] ~= nil) then
+							if (thisPlayerTables['raidProfile']['hasRenderableData'] == true) then
+								showThisTooltip = true
 							end
-							
 						end
+						
+						if (thisPlayerTables['mythicKeystoneProfile'] ~= nil) then
+							if (thisPlayerTables['mythicKeystoneProfile']['hasRenderableData'] == true) then
+								showThisTooltip = true
+							end
+						end
+						
+						if (thisPlayerTables['recruitmentProfile'] ~= nil) then
+							if (thisPlayerTables['recruitmentProfile']['hasRenderableData'] == true) then
+								showThisTooltip = true
+							end
+						end
+					
+					
+						if (showThisTooltip == true) then
+						
+							if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER)) then
+								TRP3_CharacterTooltip:AddLine(" ")
+								TRP3_CharacterTooltip:AddLine("|Tinterface\\friendsframe\\ui-friendsframe-onlinedivider:5:320|t")
+							end	
+						
+							RaiderIO.ShowProfile(TRP3_CharacterTooltip, "mouseover")
+						
+						end
+						
+						--end
 					
 					end
 					
@@ -927,19 +927,28 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 
 
 	--Config stuff
+	
+	local TRPRIOTOOLTIPS_DROPDOWNSTUFF = {
+		{ "When IC and OOC", false },
+		{ "When OOC Only", true }
+	}
 
 
 	TRPRIOTOOLTIPS.CONFIG = {};
 
 	TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC = "trp3_riotooltips_hide_tooltips_ic";
+	TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER = "trp3_riotooltips_enable_divider";
 	TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP = "trp3_riotooltips_enable_mini_tooltip";
+	TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_TITLE = "trp3_riotooltips_enable_title";
 	TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE = "trp3_riotooltips_enable_score";
 	TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE = "trp3_riotooltips_enable_raid";
 	TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN = "trp3_riotooltips_enable_score_main";
 	TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE_MAIN = "trp3_riotooltips_enable_raid_main";
 
 	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC, false);
+	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER, false);
 	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP, false);
+	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_TITLE, true);
 	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE, true);
 	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE, true);
 	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN, true);
@@ -952,20 +961,61 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 			pageText = "Raider.IO Tooltips",
 			elements = {
 				{
-					inherit = "TRP3_ConfigCheck",
-					title = "Hide Raider.IO Tooltips when IC",
-					help = "If checked, disables showing Raider.IO info on tooltips when you are IC (In Character).",
-					configKey = TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC
+					inherit = "TRP3_ConfigButton",
+					title = "Show Raider.IO Addon Options",
+					help = "Open the Options for the actual Raider.IO Addon.",
+					text = "Open R.IO Options",
+					callback = function()
+						DEFAULT_CHAT_FRAME.editBox:SetText("/rio") ChatEdit_SendText(DEFAULT_CHAT_FRAME.editBox, 0) 
+					end,
+				},
+				{
+					inherit = "TRP3_ConfigNote",
+					title = " ",
+				},
+				{
+					inherit = "TRP3_ConfigDropDown",
+					widgetName = "trp3_riotooltips_hide_tooltips_ic",
+					title = "Show Raider.IO Info on TRP 3 Tooltip",
+					help = "Determine whether R.IO Info should show if you are IC or OOC.",
+					listContent = TRPRIOTOOLTIPS_DROPDOWNSTUFF,
+					configKey = TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC,
+					listCallback = function(value)
+						TRP3_API.configuration.setValue(TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC, value)
+					end,
+
 				},
 				{
 					inherit = "TRP3_ConfigCheck",
-					title = "Use minified Raider.IO Tooltip formatting",
+					title = "Add Divider Graphic above Raider.IO Info",
+					help = "If checked, adds a divider graphic to seperate the main TRP3 Tooltip Info from the Raider.IO Tooltip Info.",
+					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER
+				},
+				{
+					inherit = "TRP3_ConfigCheck",
+					title = "Use Minified Raider.IO Tooltip",
 					help = "If checked, the addon's minified formatting will be used instead of the original Raider.IO tooltip info.",
 					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP
 				},
+				
+				{
+					inherit = "TRP3_ConfigNote",
+					title = " ",
+				},
+				{
+					inherit = "TRP3_ConfigH1",
+					title = "Minified Tooltip Settings",
+				},
 				{
 					inherit = "TRP3_ConfigCheck",
-					title = "Show Raider.IO Score",
+					title = "Show Raider.IO Title",
+					help = "Show the yellow Raider.IO Title Text.",
+					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_TITLE,
+					dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
+				},
+				{
+					inherit = "TRP3_ConfigCheck",
+					title = "Show M+ Score",
 					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE,
 					dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
 				},
@@ -977,8 +1027,8 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				},
 				{
 					inherit = "TRP3_ConfigCheck",
-					title = "Show Main's Raider.IO Score",
-					help = "Show the character's main's Raider.IO score, if available.",
+					title = "Show Main's M+ Score",
+					help = "Show the character's main's Mythic Plus score, if available.",
 					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN,
 					dependentOnOptions = { (TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE and TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP) },
 				},
