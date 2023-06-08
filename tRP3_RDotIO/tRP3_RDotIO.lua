@@ -17,6 +17,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 	local mythicRaidColor = "|cffa335ee"
 	local mythicRaidColorText = "|cffce94f7"
 
+	local dividerGraphic = "|Tinterface\\friendsframe\\ui-friendsframe-onlinedivider:4:320:0:0:0:0:0:0:6:8|t"
 
 	local function fixFontsTrp3RIO (small)
 
@@ -465,7 +466,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					
 						if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER)) then
 							TRP3_CharacterTooltip:AddLine(" ")
-							TRP3_CharacterTooltip:AddLine("|Tinterface\\friendsframe\\ui-friendsframe-onlinedivider:5:320|t")
+							TRP3_CharacterTooltip:AddLine(dividerGraphic)
 						end	
 						
 						TRP3_CharacterTooltip:AddDoubleLine(" ", " ")
@@ -474,7 +475,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 							TRP3_CharacterTooltip:AddDoubleLine("Raider.IO", " ", NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
 						end
 						
-						--fixFontsTrp3RIO()
+						
 				
 				
 						
@@ -487,7 +488,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 							end
 						
 							TRP3_CharacterTooltip:AddDoubleLine(varPlayerPrevSeasonLabel .. "M+ Score", varPlayerScore,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerScoreNum, varPrevSeasonM));
-							--fixFontsTrp3RIO()
+							
 							
 						end
 						
@@ -495,7 +496,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 						if (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0) then
 							
 								TRP3_CharacterTooltip:AddDoubleLine("Best M+ Score" .. varPlayerScorePrevSeason, varPlayerScorePrev,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerScorePrevNum, true));
-							--fixFontsTrp3RIO()
+							
 							
 							
 							
@@ -510,14 +511,14 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 							end
 						
 							TRP3_CharacterTooltip:AddDoubleLine("Main's " .. varPlayerMainPrevSeasonLabel .. "M+ Score", varPlayerMainScore,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerMainScore, varPrevSeasonMainM));
-							--fixFontsTrp3RIO()
+							
 							
 						end
 						
 						
 						if (varPlayerMainScorePrev ~= 0) then
 								TRP3_CharacterTooltip:AddDoubleLine("Main's Best M+ Score" .. varPlayerMainScorePrevSeason, varPlayerMainScorePrev,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerMainScorePrevNum, true));
-								--fixFontsTrp3RIO()
+								
 						end
 						
 						
@@ -598,7 +599,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 									if (strRaidProgress ~= "") then
 											
 										TRP3_CharacterTooltip:AddDoubleLine(strRaidMainName .. " Progress" , strRaidProgress,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b );
-										--fixFontsTrp3RIO()
+										
 										
 										
 									
@@ -689,8 +690,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 									 if (strRaidMainProgress ~= "") then
 							
 										TRP3_CharacterTooltip:AddDoubleLine("Main's " .. strRaidMainProgressName .. " Progress" , strRaidMainProgress,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b );
-									
-									--	fixFontsTrp3RIO()
+								
 															
 														
 									end
@@ -722,8 +722,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 									 if ((tblRaidProgress["prev"][k]["thereIsScore"] == true) and (tblRaidProgress["prev"][k]["obsolete"] == false)) then
 									 --
 									 
-										--print(k)
-										--tprint(tblRaidProgress["prev"][k])
+										
 										strRaidProgressPreviousName = tblRaidProgress["prev"][k]["name"]
 										
 										
@@ -733,7 +732,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 											
 											strRaidProgressPrevious = strRaidProgressPrevious .. normalRaidColor .. "    N " .. normalRaidColorText .. tblRaidProgress["prev"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["normal"]["bossCount"]
 											
-											--varRaidNumNormal = thisPlayerTables['raidProfile']["prev"][z]["progressCount"]
+											
 											
 											
 										end
@@ -745,7 +744,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 											 
 											strRaidProgressPrevious = strRaidProgressPrevious .. heroicRaidColor .. "    H " .. heroicRaidColorText .. tblRaidProgress["prev"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["heroic"]["bossCount"]
 											
-											--varRaidNumHeroic = thisPlayerTables['raidProfile']["prev"][z]["progressCount"]
+											
 											
 										end
 										
@@ -754,34 +753,22 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 											--Mythic												
 											strRaidProgressPrevious = strRaidProgressPrevious .. mythicRaidColor .. "    M " .. mythicRaidColorText .. tblRaidProgress["prev"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["mythic"]["bossCount"]
 											
-											--varRaidNumMythic = thisPlayerTables['raidProfile']["prev"][z]["progressCount"]
+										
 											
 										end
-								
-								
-								
-								
-										
-										
-										
+						
 									 
 									 
 									 end
 									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
+						 
 									 
 
-									if (strRaidProgressPrevious ~= "") then
+									if (strRaidProgressPrevious ~= "" and strRaidMainProgress == "") then
 									
 										TRP3_CharacterTooltip:AddDoubleLine(strRaidProgressPreviousName .. " Progress" , strRaidProgressPrevious,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b );
 										
-										--fixFontsTrp3RIO()
+										
 										
 									
 									end
@@ -806,34 +793,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 						
 						
 						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-							
-							
-						
-					
+
 				
 					
 					end -- eo print to tooltip
@@ -887,7 +847,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 						
 							if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER)) then
 								TRP3_CharacterTooltip:AddLine(" ")
-								TRP3_CharacterTooltip:AddLine("|Tinterface\\friendsframe\\ui-friendsframe-onlinedivider:5:320|t")
+								TRP3_CharacterTooltip:AddLine(dividerGraphic)
 							end	
 						
 							RaiderIO.ShowProfile(TRP3_CharacterTooltip, "mouseover")
@@ -958,7 +918,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 		TRP3_API.configuration.registerConfigurationPage({
 			id = "trp3_riotooltips_config",
 			menuText = "Raider.IO",
-			pageText = "Raider.IO Tooltips",
+			pageText = "Raider.IO Tooltip Support",
 			elements = {
 				{
 					inherit = "TRP3_ConfigButton",
@@ -972,6 +932,10 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				{
 					inherit = "TRP3_ConfigNote",
 					title = " ",
+				},
+				{
+					inherit = "TRP3_ConfigH1",
+					title = "Main Settings",
 				},
 				{
 					inherit = "TRP3_ConfigDropDown",
