@@ -10,7 +10,7 @@ Alternatively, you can enable a minified tooltip, which contains only Mythic+ Ra
 ## Compatibility
 * **Dragonflight** - 10.1.0
 
-**REQUIRES** both [Total RP 3](https://github.com/Total-RP/Total-RP-3) and [Raider.IO](https://github.com/RaiderIO/raiderio-addon) to be installed.
+This addon **requires** both [Total RP 3](https://github.com/Total-RP/Total-RP-3) and [Raider.IO](https://github.com/RaiderIO/raiderio-addon) to be installed.
 
 ## Installation
 Download the latest version from one of the places below, and unzip it in your `<warcraft>\<_version_>\Interface\Addons` folder if installing manually.
@@ -25,8 +25,9 @@ A new area will be added into Total RP 3's Config Window, under 'Settings' > 'Ra
 
 You can also access the config by typing `/trp3 rio`. 
 
-* Toggle Hiding Raider.IO info when you are IC (In Character).
-* Toggle whether to use the original Raider.IO Tooltip formatting, or the addon's minified formatting.
-* Toggle whether M+ Score and/or Raid Progress shows on the minified tooltip.
+* Toggle whether R.IO info is shown when you are IC and OOC, or OOC only. (This is "IC and OOC" by default)
+* Toggle whether to use the original Raider.IO Tooltip formatting, or the addon's minified formatting. (This is Regular R.IO Tooltip by default)
+* Toggle whether to use a divider graphic to seperate the regular TRP3 info from the R.IO info. (This is disabled by default)
+* Toggle whether M+ Score and/or Raid Progress shows on the minified tooltip. (These are enabled by default)
 
 To configure how the formatting of the original Raider.IO tooltip looks, type `/raiderio`.

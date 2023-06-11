@@ -29,19 +29,13 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 			thisFontSize = TRP3_API.ui.tooltip.getSmallLineFontSize()
 		end
 
-
-			--Incredibly rough but it works, for now
-				local line = _G[strconcat(TRP3_CharacterTooltip:GetName(), "TextLeft", TRP3_CharacterTooltip:NumLines())]
-				local font, _ , flag = line:GetFont()
-				line:SetFont(font, thisFontSize, flag)
-				
-				local line2 = _G[strconcat(TRP3_CharacterTooltip:GetName(), "TextRight", TRP3_CharacterTooltip:NumLines())]
-				local font2, _ , flag2 = line2:GetFont()
-				line2:SetFont(font2, thisFontSize, flag2)
-				
-				--TRP3_CharacterTooltip:Show()
-				--TRP3_CharacterTooltip:GetTop()
-
+		local line = _G[strconcat(TRP3_CharacterTooltip:GetName(), "TextLeft", TRP3_CharacterTooltip:NumLines())]
+		local font, _ , flag = line:GetFont()
+		line:SetFont(font, thisFontSize, flag)
+		
+		local line2 = _G[strconcat(TRP3_CharacterTooltip:GetName(), "TextRight", TRP3_CharacterTooltip:NumLines())]
+		local font2, _ , flag2 = line2:GetFont()
+		line2:SetFont(font2, thisFontSize, flag2)
 
 	end
 
@@ -145,7 +139,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					
 			
 						
-						thisPlayerTables = RaiderIO.GetProfile("mouseover")
+						thisPlayerTables = RaiderIO.GetProfile(t.target)
 						
 							
 					if (thisPlayerTables) then
@@ -816,7 +810,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				
 				else --end of mini tooltip
 				
-					thisPlayerTables = RaiderIO.GetProfile("mouseover")
+					thisPlayerTables = RaiderIO.GetProfile(t.target)
 						
 							
 					if (thisPlayerTables) then
@@ -850,7 +844,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 								TRP3_CharacterTooltip:AddLine(dividerGraphic)
 							end	
 						
-							RaiderIO.ShowProfile(TRP3_CharacterTooltip, "mouseover")
+							RaiderIO.ShowProfile(TRP3_CharacterTooltip, t.target)
 						
 						end
 						
@@ -860,7 +854,6 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					
 				end --end of main tooltip
 					
-						
 						
 						TRP3_CharacterTooltip:Show()
 						TRP3_CharacterTooltip:GetTop()
@@ -1022,10 +1015,10 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 	TRP3_API.module.registerModule({
 		name = "Raider.IO Tooltip Support",
 		description = "Allows TRP 3 to show Raider.IO information on the tooltip.",
-		version = "1.4.6",
+		version = "1.5.0",
 		id = "trp3_riotooltips",
 		onStart = trp3rioinit,
-		requiredDeps = { { "RaiderIO", "external" } },
+		requiredDeps = { { "RaiderIO", "external" }, { "trp3_tooltips", 1.0 } },
 		minVersion = 110,
 	});
 
