@@ -19,6 +19,9 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 
 	local dividerGraphic = "|Tinterface\\friendsframe\\ui-friendsframe-onlinedivider:4:320:0:0:0:0:0:0:6:8|t"
 
+
+
+	--Fixes inconsistent font sizes
 	local function fixFontsTrp3RIO (small)
 
 		small = small or false
@@ -85,6 +88,9 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					fixFontsTrp3RIO()
 			end)
 			
+			
+			
+			
 			hooksecurefunc(TRP3_CharacterTooltip, "AddLine", function(t)
 			
 			end)
@@ -93,14 +99,16 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 			
 				
 		 
-				TRP3_CharacterTooltip:HookScript("OnShow", function(t)
+			TRP3_CharacterTooltip:HookScript("OnShow", function(t)
 				
 				
 				local showtooltip = true
 				
+				local thisPlayerToLookUp = t.target
+				--t.target
+				
 				
 				--check if IC/OOC and if disable when IC is enabled
-				
 				
 				if (TRP3_API.dashboard.isPlayerIC() and TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC)) then
 					--hide tooltips, user is IC and hiding IC tooltips
@@ -139,7 +147,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					
 			
 						
-						thisPlayerTables = RaiderIO.GetProfile(t.target)
+						thisPlayerTables = RaiderIO.GetProfile(thisPlayerToLookUp)
 						
 							
 					if (thisPlayerTables) then
@@ -445,7 +453,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					
 					---------------------------------------------------
 
-				
+		
 					
 						
 					end
@@ -540,8 +548,8 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 								strRaidProgressName = ""
 									 
 									 
-									 if ((tblRaidProgress["progress"][k]["thereIsScore"] == true) ) then
-									 --  and (tblRaidProgress["progress"][k]["obsolete"] == false)
+									 if ((tblRaidProgress["progress"][k]["thereIsScore"] == true) and (tblRaidProgress["progress"][k]["obsolete"] == false)) then
+									 --  
 									 
 										--print(k)
 										--tprint(tblRaidProgress["progress"][k])
@@ -810,7 +818,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				
 				else --end of mini tooltip
 				
-					thisPlayerTables = RaiderIO.GetProfile(t.target)
+					thisPlayerTables = RaiderIO.GetProfile(thisPlayerToLookUp)
 						
 							
 					if (thisPlayerTables) then
@@ -844,7 +852,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 								TRP3_CharacterTooltip:AddLine(dividerGraphic)
 							end	
 						
-							RaiderIO.ShowProfile(TRP3_CharacterTooltip, t.target)
+							RaiderIO.ShowProfile(TRP3_CharacterTooltip, thisPlayerToLookUp)
 						
 						end
 						
