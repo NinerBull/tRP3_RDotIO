@@ -176,13 +176,11 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										end
 										varPlayerScoreNum = varPlayerScore
 										varPlayerPrevSeason = false
-										varPlayerPrevSeasonLabel = ""
 										varPlayerScorePrevSeason = ""
 										
 										if (thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['score']) then
 											if (varPlayerScore <= thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['score']) then
 												varPlayerPrevSeason = true
-												varPlayerPrevSeasonLabel = ""
 											end
 											
 										end
@@ -214,14 +212,12 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 											end
 											varPlayerMainScoreNum = varPlayerMainScore
 											varPlayerMainPrevSeason = false
-											varPlayerMainPrevSeasonLabel = ""
 											varPlayerMainScorePrevSeason = ""
 											
 											
 											if (thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['score']) then
 												if (varPlayerMainScore <= thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['score']) then
 													varPlayerMainPrevSeason = true
-													varPlayerMainPrevSeasonLabel = ""
 												end
 											end
 											
