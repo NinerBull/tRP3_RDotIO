@@ -75,15 +75,11 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 
 
 		if event == "PLAYER_LOGIN" and loadedstuff == false then
-			--loadedstuff = true
-
+		
 		 if TRP3_CharacterTooltip ~= nil then
 		 
 		 
-		 
-		 
-		 
-		 
+
 			hooksecurefunc(TRP3_CharacterTooltip, "AddDoubleLine", function(t)
 					fixFontsTrp3RIO()
 			end)
@@ -162,9 +158,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					
 						--This player has a Raider.io Profile
 									
-									
-					
-					
+
 					---------------------------------------------------
 					
 					-- MPLUS Info
@@ -173,6 +167,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 									
 							if (thisPlayerTables['mythicKeystoneProfile']) then
 								if (thisPlayerTables['mythicKeystoneProfile']['hasRenderableData'] == true) then
+								
 									
 										--This char
 										varPlayerScore = 0
@@ -182,11 +177,12 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										varPlayerScoreNum = varPlayerScore
 										varPlayerPrevSeason = false
 										varPlayerPrevSeasonLabel = ""
+										varPlayerScorePrevSeason = ""
 										
 										if (thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['score']) then
 											if (varPlayerScore <= thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['score']) then
 												varPlayerPrevSeason = true
-												varPlayerPrevSeasonLabel = "Current "
+												varPlayerPrevSeasonLabel = ""
 											end
 											
 										end
@@ -197,12 +193,10 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										if (varPlayerPrevSeason) then	
 										
 										
-										
-											varPlayerScorePrev = "±" .. thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['score']
 											varPlayerScorePrevNum = thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['score']
 											varPlayerScorePrevSeason = ""
-											if (thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season'] and thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season'] ~= 0) then
-												varPlayerScorePrevSeason = " (S" .. (1 + thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season']) .. ")"
+											if (thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season']) then
+												varPlayerScorePrevSeason = (1 + thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season'])
 											end
 											
 											
@@ -221,12 +215,13 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 											varPlayerMainScoreNum = varPlayerMainScore
 											varPlayerMainPrevSeason = false
 											varPlayerMainPrevSeasonLabel = ""
+											varPlayerMainScorePrevSeason = ""
 											
 											
 											if (thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['score']) then
 												if (varPlayerMainScore <= thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['score']) then
 													varPlayerMainPrevSeason = true
-													varPlayerMainPrevSeasonLabel = "Current "
+													varPlayerMainPrevSeasonLabel = ""
 												end
 											end
 											
@@ -234,12 +229,10 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 											
 											
 											if (varPlayerMainPrevSeason and thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['score'] > varPlayerScore) then	
-												varPlayerMainScorePrev = "±" .. thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['score']
 												varPlayerMainScorePrevNum = thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['score']
-												
 												varPlayerMainScorePrevSeason = ""
-												if (thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['season'] and thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['season'] ~= 0) then
-													varPlayerMainScorePrevSeason = " (S" .. (1 + thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['season']) .. ")"
+												if (thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['season']) then
+													varPlayerMainScorePrevSeason = (1 + thisPlayerTables['mythicKeystoneProfile']['mplusMainPrevious']['season'])
 												end
 												
 												
@@ -276,11 +269,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 									tblRaidProgress["main"] = {}
 							
 									 if (thisPlayerTables['raidProfile']) then
-									 
-									 --tprint(thisPlayerTables['raidProfile']["sortedProgress"])
-									-- print(#thisPlayerTables['raidProfile']['sortedProgress'])
-							
-							
+
 									-- Raid stuff
 				
 				
@@ -290,14 +279,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 									
 									if (thisPlayerTables['raidProfile']["sortedProgress"][z]["progress"]["raid"]["shortName"]) then
 									
-											--print("--------")
-									
-											--tprint(thisPlayerTables['raidProfile']['sortedProgress'][z])
-										
-										
-									
-									
-									
+
 												varRaidName = thisPlayerTables['raidProfile']["sortedProgress"][z]["progress"]["raid"]["shortName"]
 		
 												
@@ -323,9 +305,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 															tblRaidProgress["main"][varRaidName]["thereIsScore"] = false
 														end
 														
-														
-														
-														
+
 														varRaidType = "progress"
 														thereIsRaidProgress = false
 														
@@ -465,67 +445,64 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					
 				if ((varPlayerScore and varPlayerScore ~= 0) or (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0) or (varPlayerMainScore and varPlayerMainScore ~= 0 and varPlayerMainScore > varPlayerScore) or (varPlayerMainScorePrev ~= 0) or (tblRaidProgress)) then
 					
+				
+					if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER)) then
+						TRP3_CharacterTooltip:AddLine(" ")
+						TRP3_CharacterTooltip:AddLine(dividerGraphic)
+					end	
 					
-						if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER)) then
-							TRP3_CharacterTooltip:AddLine(" ")
-							TRP3_CharacterTooltip:AddLine(dividerGraphic)
-						end	
+					
+					TRP3_CharacterTooltip:AddDoubleLine(" ", " ")
+					
+					
+					if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_TITLE)) then					
+						TRP3_CharacterTooltip:AddDoubleLine("Raider.IO", " ", NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+					end
+					
+					
+					
+					
+					--Show M+ Score
+					if ((varPlayerScore and varPlayerScore ~= 0) or (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0)) then
 						
-						TRP3_CharacterTooltip:AddDoubleLine(" ", " ")
-						
-						if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_TITLE)) then					
-							TRP3_CharacterTooltip:AddDoubleLine("Raider.IO", " ", NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
-						end
-						
-						
-				
-				
-						
-							
+					
+						local varMPlusTextExtra = ""
 						if (varPlayerScore and varPlayerScore ~= 0) then
+							varMPlusTextExtra = varPlayerScore
+						end
 						
-							varPrevSeasonM = true
-							if (varPlayerPrevSeasonLabel == "") then
-								varPrevSeasonM = false
+						local varMPlusPrevTextExtra = ""
+						if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE)) then
+							if (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0) then
+								varMPlusPrevTextExtra = " |cnGRAY_FONT_COLOR:(S" ..  varPlayerScorePrevSeason .. ": " .. varPlayerScorePrevNum ..")|r"
 							end
+						end
+					
+						TRP3_CharacterTooltip:AddDoubleLine("M+ Score", varMPlusTextExtra .. varMPlusPrevTextExtra,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerScoreNum));
+					
+					end
+					
+					-- Only show if main's score is higher than this char's score
+					if ((varPlayerMainScore and varPlayerMainScore ~= 0) and (varPlayerMainScore > varPlayerScore)) then
 						
-							TRP3_CharacterTooltip:AddDoubleLine(varPlayerPrevSeasonLabel .. "M+ Score", varPlayerScore,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerScoreNum, varPrevSeasonM));
-							
-							
+						local varMPlusMainTextExtra = ""
+						if (varPlayerMainScore and varPlayerMainScore ~= 0) then
+							varMPlusMainTextExtra = varPlayerMainScore
 						end
 						
-						
-						if (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0) then
-							
-								TRP3_CharacterTooltip:AddDoubleLine("Best M+ Score" .. varPlayerScorePrevSeason, varPlayerScorePrev,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerScorePrevNum, true));
-							
-							
-							
-							
-						end
-						
-						-- Only show if main's score is higher than this char's score
-						if (varPlayerMainScore and varPlayerMainScore ~= 0 and varPlayerMainScore > varPlayerScore) then
-						
-							varPrevSeasonMainM = true
-							if (varPlayerMainPrevSeasonLabel == "") then
-								varPrevSeasonMainM = false
+						local varMPlusMainPrevTextExtra = ""
+						if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE)) then
+							if (varPlayerMainScorePrevNum and varPlayerMainScorePrevNum ~= 0) then
+								varMPlusMainPrevTextExtra = " |cnGRAY_FONT_COLOR:(S" ..  varPlayerMainScorePrevSeason .. ": " .. varPlayerMainScorePrevNum ..")|r"
 							end
-						
-							TRP3_CharacterTooltip:AddDoubleLine("Main's " .. varPlayerMainPrevSeasonLabel .. "M+ Score", varPlayerMainScore,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerMainScore, varPrevSeasonMainM));
-							
-							
 						end
+					
+						TRP3_CharacterTooltip:AddDoubleLine("Main's M+ Score", varMPlusMainTextExtra .. varMPlusMainPrevTextExtra,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerMainScore));
 						
 						
-						if (varPlayerMainScorePrev ~= 0) then
-								TRP3_CharacterTooltip:AddDoubleLine("Main's Best M+ Score" .. varPlayerMainScorePrevSeason, varPlayerMainScorePrev,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerMainScorePrevNum, true));
-								
-						end
+					end
 						
-						
-						
-						
+				
 						--loop through raid stuff
 						
 						
@@ -539,9 +516,6 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 								-- loop through main progress
 								
 								
-
-								
-								
 								for k,v in pairs(tblRaidProgress["progress"]) do
 								
 								strRaidProgress = ""
@@ -549,50 +523,32 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 									 
 									 
 									 if ((tblRaidProgress["progress"][k]["thereIsScore"] == true) and (tblRaidProgress["progress"][k]["obsolete"] == false)) then
-									 --  
-									 
-										--print(k)
-										--tprint(tblRaidProgress["progress"][k])
+
 										strRaidMainName = tblRaidProgress["progress"][k]["name"]
 										
 										
 										if (tblRaidProgress["progress"][k]["normal"]) then
-													--Normal
+											--Normal
 
-											
-											strRaidProgress = strRaidProgress .. normalRaidColor .. "    N " .. normalRaidColorText .. tblRaidProgress["progress"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["normal"]["bossCount"]
-											
-											--varRaidNumNormal = thisPlayerTables['raidProfile']["progress"][z]["progressCount"]
-											
-											
+											strRaidProgress = strRaidProgress .. normalRaidColor .. "   N " .. normalRaidColorText .. tblRaidProgress["progress"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["normal"]["bossCount"]
+	
 										end
 										
 										if (tblRaidProgress["progress"][k]["heroic"]) then
 											--Heroic
-											
-										
 											 
-											strRaidProgress = strRaidProgress .. heroicRaidColor .. "    H " .. heroicRaidColorText .. tblRaidProgress["progress"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["heroic"]["bossCount"]
-											
-											--varRaidNumHeroic = thisPlayerTables['raidProfile']["progress"][z]["progressCount"]
-											
+											strRaidProgress = strRaidProgress .. heroicRaidColor .. "   H " .. heroicRaidColorText .. tblRaidProgress["progress"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["heroic"]["bossCount"]
+		
 										end
 										
 										
 										if (tblRaidProgress["progress"][k]["mythic"]) then
 											--Mythic												
-											strRaidProgress = strRaidProgress .. mythicRaidColor .. "    M " .. mythicRaidColorText .. tblRaidProgress["progress"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["mythic"]["bossCount"]
-											
-											--varRaidNumMythic = thisPlayerTables['raidProfile']["progress"][z]["progressCount"]
-											
+											strRaidProgress = strRaidProgress .. mythicRaidColor .. "   M " .. mythicRaidColorText .. tblRaidProgress["progress"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["mythic"]["bossCount"]
+												
 										end
 								
 								
-								
-								
-										
-										
-										
 									 
 									 
 									 end
@@ -640,42 +596,28 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 									 
 									 
 									 if ((tblRaidProgress["main"][k]["thereIsScore"] == true) and (tblRaidProgress["main"][k]["obsolete"] == false)) then
-									 -- 
-									 
-										--print(k)
-										--tprint(tblRaidProgress["main"][k])
-										
+
 										strRaidMainProgressName = tblRaidProgress["main"][k]["name"]
 										
 										
 										if (tblRaidProgress["main"][k]["normal"]) then
-													--Normal
+											--Normal
 
-											
-											strRaidMainProgress = strRaidMainProgress .. normalRaidColor .. "    N " .. normalRaidColorText .. tblRaidProgress["main"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["normal"]["bossCount"]
-											
-											--varRaidNumNormal = thisPlayerTables['raidProfile']["main"][z]["progressCount"]
-											
-											
+											strRaidMainProgress = strRaidMainProgress .. normalRaidColor .. "   N " .. normalRaidColorText .. tblRaidProgress["main"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["normal"]["bossCount"]
+												
 										end
 										
 										if (tblRaidProgress["main"][k]["heroic"]) then
 											--Heroic
-											
-										
 											 
-											strRaidMainProgress = strRaidMainProgress .. heroicRaidColor .. "    H " .. heroicRaidColorText .. tblRaidProgress["main"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["heroic"]["bossCount"]
-											
-											--varRaidNumHeroic = thisPlayerTables['raidProfile']["main"][z]["progressCount"]
+											strRaidMainProgress = strRaidMainProgress .. heroicRaidColor .. "   H " .. heroicRaidColorText .. tblRaidProgress["main"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["heroic"]["bossCount"]
 											
 										end
 										
 										
 										if (tblRaidProgress["main"][k]["mythic"]) then
 											--Mythic												
-											strRaidMainProgress = strRaidMainProgress .. mythicRaidColor .. "    M " .. mythicRaidColorText .. tblRaidProgress["main"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["mythic"]["bossCount"]
-											
-											--varRaidNumMythic = thisPlayerTables['raidProfile']["main"][z]["progressCount"]
+											strRaidMainProgress = strRaidMainProgress .. mythicRaidColor .. "   M " .. mythicRaidColorText .. tblRaidProgress["main"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["mythic"]["bossCount"]
 											
 										end
 								
@@ -729,33 +671,24 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										
 										
 										if (tblRaidProgress["prev"][k]["normal"]) then
-													--Normal
+											--Normal
+											
+											strRaidProgressPrevious = strRaidProgressPrevious .. normalRaidColor .. "   N " .. normalRaidColorText .. tblRaidProgress["prev"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["normal"]["bossCount"]
 
-											
-											strRaidProgressPrevious = strRaidProgressPrevious .. normalRaidColor .. "    N " .. normalRaidColorText .. tblRaidProgress["prev"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["normal"]["bossCount"]
-											
-											
-											
-											
 										end
 										
 										if (tblRaidProgress["prev"][k]["heroic"]) then
 											--Heroic
 											
-										
-											 
-											strRaidProgressPrevious = strRaidProgressPrevious .. heroicRaidColor .. "    H " .. heroicRaidColorText .. tblRaidProgress["prev"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["heroic"]["bossCount"]
-											
-											
-											
+											strRaidProgressPrevious = strRaidProgressPrevious .. heroicRaidColor .. "   H " .. heroicRaidColorText .. tblRaidProgress["prev"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["heroic"]["bossCount"]
+												
 										end
 										
 										
 										if (tblRaidProgress["prev"][k]["mythic"]) then
-											--Mythic												
-											strRaidProgressPrevious = strRaidProgressPrevious .. mythicRaidColor .. "    M " .. mythicRaidColorText .. tblRaidProgress["prev"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["mythic"]["bossCount"]
+											--Mythic		
 											
-										
+											strRaidProgressPrevious = strRaidProgressPrevious .. mythicRaidColor .. "   M " .. mythicRaidColorText .. tblRaidProgress["prev"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["mythic"]["bossCount"]
 											
 										end
 						
@@ -769,9 +702,6 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 									if (strRaidProgressPrevious ~= "" and strRaidMainProgress == "") then
 									
 										TRP3_CharacterTooltip:AddDoubleLine(strRaidProgressPreviousName .. " Progress" , strRaidProgressPrevious,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b );
-										
-										
-										
 									
 									end
 									 
@@ -905,6 +835,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 	TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE = "trp3_riotooltips_enable_raid";
 	TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN = "trp3_riotooltips_enable_score_main";
 	TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE_MAIN = "trp3_riotooltips_enable_raid_main";
+	TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE = "trp3_riotooltips_enable_prev_score";
 
 	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC, false);
 	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER, false);
@@ -914,6 +845,9 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE, true);
 	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN, true);
 	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE_MAIN, true);
+	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE, true);
+	
+	
 
 
 		TRP3_API.configuration.registerConfigurationPage({
@@ -941,7 +875,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				{
 					inherit = "TRP3_ConfigDropDown",
 					widgetName = "trp3_riotooltips_hide_tooltips_ic",
-					title = "Show Raider.IO Info on TRP 3 Tooltip",
+					title = "Show Raider.IO Info on TRP3 Tooltip",
 					help = "Determine whether R.IO Info should show if you are IC or OOC.",
 					listContent = TRPRIOTOOLTIPS_DROPDOWNSTUFF,
 					configKey = TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC,
@@ -986,10 +920,18 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				},
 				{
 					inherit = "TRP3_ConfigCheck",
+					title = "Show Previous M+ Score If higher",
+					help = "Show the previous season's M+ score next to the current season score, if it is higher.",
+					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE,
+					dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE, TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
+				},
+				{
+					inherit = "TRP3_ConfigCheck",
 					title = "Show Raid Progress",
 					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE,
 					dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
 				},
+				
 				{
 					inherit = "TRP3_ConfigCheck",
 					title = "Show Main's M+ Score",
