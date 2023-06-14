@@ -10,12 +10,12 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 	local ignoretooltip = false
 	local loadedstuff = false
 
-	local normalRaidColor = "|cff1eff00"
-	local normalRaidColorText = "|cff98f989"
-	local heroicRaidColor = "|cff0070dd"
-	local heroicRaidColorText = "|cff67abea"
-	local mythicRaidColor = "|cffa335ee"
-	local mythicRaidColorText = "|cffce94f7"
+	local normalRaidColor = "|cnITEM_GOOD_COLOR:"
+	local normalRaidColorText = "|cnWHITE_FONT_COLOR:"
+	local heroicRaidColor = "|cnITEM_SUPERIOR_COLOR:"
+	local heroicRaidColorText = "|cnWHITE_FONT_COLOR:"
+	local mythicRaidColor = "|cnITEM_EPIC_COLOR:"
+	local mythicRaidColorText = "|cnWHITE_FONT_COLOR:"
 
 	local dividerGraphic = "|Tinterface\\friendsframe\\ui-friendsframe-onlinedivider:4:320:0:0:0:0:0:0:6:8|t"
 
@@ -474,8 +474,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 							end
 						end
 					
-						TRP3_CharacterTooltip:AddDoubleLine("M+ Score", varMPlusTextExtra .. varMPlusPrevTextExtra,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerScoreNum));
-					
+						TRP3_CharacterTooltip:AddDoubleLine("M+ Score", varMPlusTextExtra .. varMPlusPrevTextExtra,  NO_THREAT_COLOR.r, NO_THREAT_COLOR.g, NO_THREAT_COLOR.b, RaiderIO.GetScoreColor(varPlayerScore))
 					end
 					
 					-- Only show if main's score is higher than this char's score
@@ -492,8 +491,10 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 								varMPlusMainPrevTextExtra = " |cnGRAY_FONT_COLOR:(S" ..  varPlayerMainScorePrevSeason .. ": " .. varPlayerMainScorePrevNum ..")|r"
 							end
 						end
-					
-						TRP3_CharacterTooltip:AddDoubleLine("Main's M+ Score", varMPlusMainTextExtra .. varMPlusMainPrevTextExtra,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerMainScore));
+						
+						local varScoreColourMain = 
+
+						TRP3_CharacterTooltip:AddDoubleLine("Main's M+ Score", varMPlusMainTextExtra .. varMPlusMainPrevTextExtra,  LIGHTGRAY_FONT_COLOR.r, LIGHTGRAY_FONT_COLOR.g, LIGHTGRAY_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerMainScore));
 						
 						
 					end
@@ -552,7 +553,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 									
 									if (strRaidProgress ~= "") then
 											
-										TRP3_CharacterTooltip:AddDoubleLine(strRaidMainName .. " Progress" , strRaidProgress,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b );
+										TRP3_CharacterTooltip:AddDoubleLine(strRaidMainName .. " Progress" , strRaidProgress,  NO_THREAT_COLOR.r, NO_THREAT_COLOR.g, NO_THREAT_COLOR.b );
 										
 										
 										
@@ -629,7 +630,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 									 
 									 if (strRaidMainProgress ~= "") then
 							
-										TRP3_CharacterTooltip:AddDoubleLine("Main's " .. strRaidMainProgressName .. " Progress" , strRaidMainProgress,  WHITE_FONT_COLOR.r, WHITE_FONT_COLOR.g, WHITE_FONT_COLOR.b );
+										TRP3_CharacterTooltip:AddDoubleLine("Main's " .. strRaidMainProgressName .. " Progress" , strRaidMainProgress,  LIGHTGRAY_FONT_COLOR.r, LIGHTGRAY_FONT_COLOR.g, LIGHTGRAY_FONT_COLOR.b );
 								
 															
 														
@@ -857,7 +858,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					help = "Open the Options for the actual Raider.IO Addon.",
 					text = "Open R.IO Options",
 					callback = function()
-						DEFAULT_CHAT_FRAME.editBox:SetText("/rio") ChatEdit_SendText(DEFAULT_CHAT_FRAME.editBox, 0) 
+						DEFAULT_CHAT_FRAME.editBox:SetText("/raiderio") ChatEdit_SendText(DEFAULT_CHAT_FRAME.editBox, 0) 
 					end,
 				},
 				{
@@ -910,35 +911,36 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				},
 				{
 					inherit = "TRP3_ConfigCheck",
-					title = "Show M+ Score",
+					title =  "M+ Score",
+					help = "Show the character's M+ Score on the tooltip.",
 					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE,
 					dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
 				},
 				{
 					inherit = "TRP3_ConfigCheck",
-					title = "Show Previous M+ Score If higher",
-					help = "Show the previous season's M+ score next to the current season score, if it is higher.",
+					title = "Previous M+ Score (*)",
+					help = "Show the characters M+ Score from the previous season, if higher than the current season's score.",
 					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE,
 					dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE, TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
 				},
 				{
 					inherit = "TRP3_ConfigCheck",
-					title = "Show Raid Progress",
+					title = "Raid Progress",
+					help = "Show the character's Raid Progress on the tooltip.",
 					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE,
 					dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
 				},
-				
 				{
 					inherit = "TRP3_ConfigCheck",
-					title = "Show Main's M+ Score",
-					help = "Show the character's main's Mythic Plus score, if available.",
+					title = "Main's M+ Score",
+					help = "Show the character's main's M+ score on the tooltip, if available.",
 					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN,
 					dependentOnOptions = { (TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE and TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP) },
 				},
 				{
 					inherit = "TRP3_ConfigCheck",
-					title = "Show Main's Raid Progress",
-					help = "Show the character's main's Raid Progress, if available.",
+					title = "Main's Raid Progress",
+					help = "Show the character's main's Raid Progress on the tooltip, if available.",
 					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE_MAIN,
 					dependentOnOptions = { (TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE and TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP) },
 				}
