@@ -963,7 +963,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 	TRP3_API.module.registerModule({
 		name = "Raider.IO Tooltip Support",
 		description = "Allows TRP 3 to show Raider.IO information on the tooltip.",
-		version = "1.5.0",
+		version = "1.5.1",
 		id = "trp3_riotooltips",
 		onStart = trp3rioinit,
 		requiredDeps = { { "RaiderIO", "external" }, { "trp3_tooltips", 1.0 } },
