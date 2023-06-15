@@ -197,10 +197,9 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 												varPlayerScorePrevSeason = (1 + thisPlayerTables['mythicKeystoneProfile']['mplusPrevious']['season'])
 											end
 											
-											
-											
-											
+
 										end
+	
 										
 										
 										if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN)) then
@@ -238,6 +237,8 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										
 
 										end --eo main
+										
+										
 									
 									end
 								end
@@ -474,43 +475,18 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 							end
 						end
 					
-						TRP3_CharacterTooltip:AddDoubleLine("M+ Score", varMPlusTextExtra .. varMPlusPrevTextExtra,  NO_THREAT_COLOR.r, NO_THREAT_COLOR.g, NO_THREAT_COLOR.b, RaiderIO.GetScoreColor(varPlayerScore))
+						TRP3_CharacterTooltip:AddDoubleLine("M+ Score", varMPlusTextExtra .. varMPlusPrevTextExtra,  LORE_TEXT_BODY_COLOR.r, LORE_TEXT_BODY_COLOR.g, LORE_TEXT_BODY_COLOR.b, RaiderIO.GetScoreColor(varPlayerScore))
 					end
 					
-					-- Only show if main's score is higher than this char's score
-					if ((varPlayerMainScore and varPlayerMainScore ~= 0) and (varPlayerMainScore > varPlayerScore)) then
-						
-						local varMPlusMainTextExtra = ""
-						if (varPlayerMainScore and varPlayerMainScore ~= 0) then
-							varMPlusMainTextExtra = varPlayerMainScore
-						end
-						
-						local varMPlusMainPrevTextExtra = ""
-						if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE)) then
-							if (varPlayerMainScorePrevNum and varPlayerMainScorePrevNum ~= 0) then
-								varMPlusMainPrevTextExtra = " |cnGRAY_FONT_COLOR:(S" ..  varPlayerMainScorePrevSeason .. ": " .. varPlayerMainScorePrevNum ..")|r"
-							end
-						end
-						
-						local varScoreColourMain = 
-
-						TRP3_CharacterTooltip:AddDoubleLine("Main's M+ Score", varMPlusMainTextExtra .. varMPlusMainPrevTextExtra,  LIGHTGRAY_FONT_COLOR.r, LIGHTGRAY_FONT_COLOR.g, LIGHTGRAY_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerMainScore));
-						
-						
-					end
+					
 						
 				
-						--loop through raid stuff
-						
-						
-						
+						-- Raid Progress
 						if(tblRaidProgress) then
 						
-						
-							
-							
+	
 							if(tblRaidProgress["progress"]) then
-								-- loop through main progress
+								
 								
 								
 								for k,v in pairs(tblRaidProgress["progress"]) do
@@ -553,7 +529,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 									
 									if (strRaidProgress ~= "") then
 											
-										TRP3_CharacterTooltip:AddDoubleLine(strRaidMainName .. " Progress" , strRaidProgress,  NO_THREAT_COLOR.r, NO_THREAT_COLOR.g, NO_THREAT_COLOR.b );
+										TRP3_CharacterTooltip:AddDoubleLine(strRaidMainName .. " Progress" , strRaidProgress,  LORE_TEXT_BODY_COLOR.r, LORE_TEXT_BODY_COLOR.g, LORE_TEXT_BODY_COLOR.b );
 										
 										
 										
@@ -572,11 +548,40 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 							
 							
 							
+						end
+						
+						
+						
+						-- Only show if main's score is higher than this char's score
+						if ((varPlayerMainScore and varPlayerMainScore ~= 0) and (varPlayerMainScore > varPlayerScore)) then
+							
+							local varMPlusMainTextExtra = ""
+							if (varPlayerMainScore and varPlayerMainScore ~= 0) then
+								varMPlusMainTextExtra = varPlayerMainScore
+							end
+							
+							local varMPlusMainPrevTextExtra = ""
+							if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE)) then
+								if (varPlayerMainScorePrevNum and varPlayerMainScorePrevNum ~= 0) then
+									varMPlusMainPrevTextExtra = " |cnGRAY_FONT_COLOR:(S" ..  varPlayerMainScorePrevSeason .. ": " .. varPlayerMainScorePrevNum ..")|r"
+								end
+							end
+							
+							local varScoreColourMain = 
+
+							TRP3_CharacterTooltip:AddDoubleLine("Main's M+ Score", varMPlusMainTextExtra .. varMPlusMainPrevTextExtra,  LIGHTGRAY_FONT_COLOR.r, LIGHTGRAY_FONT_COLOR.g, LIGHTGRAY_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerMainScore));
 							
 							
-							
-							
-							
+						end
+						
+						
+						
+						
+						
+						
+						-- Main's Raid Progress
+						if(tblRaidProgress) then
+	
 							
 							if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE_MAIN)) then
 								
@@ -618,13 +623,6 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 											
 										end
 								
-								
-								
-								
-										
-										
-										
-									 
 									 
 									 end
 									 
@@ -648,6 +646,15 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 							
 							end
 							
+						end
+						
+						
+						
+						
+						
+						
+						-- Previous Raid Progress
+						if(tblRaidProgress) then	
 							
 							if(tblRaidProgress["prev"]) then
 								-- loop through prev progress
@@ -710,11 +717,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 							
 								
 							end --eo prev progress loop
-		
-		
-		
-		
-		
+	
 						
 						end
 
