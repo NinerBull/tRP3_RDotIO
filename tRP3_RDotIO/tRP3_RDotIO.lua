@@ -273,7 +273,6 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 									for z=1,#thisPlayerTables['raidProfile']['sortedProgress']  do
 									
 									
-									
 									if (thisPlayerTables['raidProfile']["sortedProgress"][z]["progress"]["raid"]["shortName"]) then
 									
 
@@ -284,21 +283,21 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 														if not tblRaidProgress["progress"][varRaidName] then
 															tblRaidProgress["progress"][varRaidName] = {}
 															tblRaidProgress["progress"][varRaidName]["name"] = varRaidName
-															tblRaidProgress["progress"][varRaidName]["obsolete"] = false
+															--tblRaidProgress["progress"][varRaidName]["obsolete"] = false
 															tblRaidProgress["progress"][varRaidName]["thereIsScore"] = false
 														end
 														
 														if not tblRaidProgress["prev"][varRaidName] then
 															tblRaidProgress["prev"][varRaidName] = {}
 															tblRaidProgress["prev"][varRaidName]["name"] = varRaidName
-															tblRaidProgress["prev"][varRaidName]["obsolete"] = false
+															--tblRaidProgress["prev"][varRaidName]["obsolete"] = false
 															tblRaidProgress["prev"][varRaidName]["thereIsScore"] = false
 														end
 														
 														if not tblRaidProgress["main"][varRaidName] then
 															tblRaidProgress["main"][varRaidName] = {}
 															tblRaidProgress["main"][varRaidName]["name"] = varRaidName
-															tblRaidProgress["main"][varRaidName]["obsolete"] = false
+															--tblRaidProgress["main"][varRaidName]["obsolete"] = false
 															tblRaidProgress["main"][varRaidName]["thereIsScore"] = false
 														end
 														
@@ -349,15 +348,15 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 														
 														
 														
-														
+														local isThisRowObsolete = false
 														
 														if (thisPlayerTables['raidProfile']['sortedProgress'][z]["obsolete"]) then
-															tblRaidProgress[varRaidType][varRaidName]["obsolete"] = thisPlayerTables['raidProfile']['sortedProgress'][z]["obsolete"]
+															isThisRowObsolete = thisPlayerTables['raidProfile']['sortedProgress'][z]["obsolete"]
 														end
+
 														
 														
-														
-														if (thisPlayerTables['raidProfile']["sortedProgress"][z]["progress"]["difficulty"]) == 1 then
+														if ((thisPlayerTables['raidProfile']["sortedProgress"][z]["progress"]["difficulty"] == 1) and (isThisRowObsolete == false)) then
 														--Normal
 														
 															tblRaidProgress[varRaidType][varRaidName]["normal"] = {}
@@ -371,7 +370,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 															
 														end
 														
-														if (thisPlayerTables['raidProfile']["sortedProgress"][z]["progress"]["difficulty"]) == 2 then
+														if ((thisPlayerTables['raidProfile']["sortedProgress"][z]["progress"]["difficulty"] == 2) and (isThisRowObsolete == false)) then
 															--Heroic
 															
 														
@@ -385,7 +384,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 														end
 														
 														
-														if (thisPlayerTables['raidProfile']["sortedProgress"][z]["progress"]["difficulty"]) == 3 then
+														if ((thisPlayerTables['raidProfile']["sortedProgress"][z]["progress"]["difficulty"] == 3) and (isThisRowObsolete == false)) then
 															--Mythic								
 
 															tblRaidProgress[varRaidType][varRaidName]["mythic"] = {}														
@@ -444,7 +443,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					
 				
 					if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER)) then
-						TRP3_CharacterTooltip:AddLine(" ")
+						TRP3_CharacterTooltip:AddDoubleLine(" ", " ")
 						TRP3_CharacterTooltip:AddLine(dividerGraphic)
 					end	
 					
@@ -488,14 +487,14 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 							if(tblRaidProgress["progress"]) then
 								
 								
-								
 								for k,v in pairs(tblRaidProgress["progress"]) do
 								
 								strRaidProgress = ""
 								strRaidProgressName = ""
 									 
 									 
-									 if ((tblRaidProgress["progress"][k]["thereIsScore"] == true) and (tblRaidProgress["progress"][k]["obsolete"] == false)) then
+									 if ((tblRaidProgress["progress"][k]["thereIsScore"] == true)) then
+										-- and (tblRaidProgress["progress"][k]["obsolete"] == false)
 
 										strRaidMainName = tblRaidProgress["progress"][k]["name"]
 										
@@ -567,8 +566,6 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 								end
 							end
 							
-							local varScoreColourMain = 
-
 							TRP3_CharacterTooltip:AddDoubleLine("Main's M+ Score", varMPlusMainTextExtra .. varMPlusMainPrevTextExtra,  LIGHTGRAY_FONT_COLOR.r, LIGHTGRAY_FONT_COLOR.g, LIGHTGRAY_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerMainScore));
 							
 							
@@ -677,14 +674,14 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										if (tblRaidProgress["prev"][k]["normal"]) then
 											--Normal
 											
-											strRaidProgressPrevious = strRaidProgressPrevious .. normalRaidColor .. "   N " .. normalRaidColorText .. tblRaidProgress["prev"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["normal"]["bossCount"]
+											strRaidProgressPrevious = strRaidProgressPrevious .. normalRaidColor .. "  N " .. normalRaidColorText .. tblRaidProgress["prev"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["normal"]["bossCount"]
 
 										end
 										
 										if (tblRaidProgress["prev"][k]["heroic"]) then
 											--Heroic
 											
-											strRaidProgressPrevious = strRaidProgressPrevious .. heroicRaidColor .. "   H " .. heroicRaidColorText .. tblRaidProgress["prev"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["heroic"]["bossCount"]
+											strRaidProgressPrevious = strRaidProgressPrevious .. heroicRaidColor .. "  H " .. heroicRaidColorText .. tblRaidProgress["prev"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["heroic"]["bossCount"]
 												
 										end
 										
@@ -692,7 +689,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										if (tblRaidProgress["prev"][k]["mythic"]) then
 											--Mythic		
 											
-											strRaidProgressPrevious = strRaidProgressPrevious .. mythicRaidColor .. "   M " .. mythicRaidColorText .. tblRaidProgress["prev"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["mythic"]["bossCount"]
+											strRaidProgressPrevious = strRaidProgressPrevious .. mythicRaidColor .. "  M " .. mythicRaidColorText .. tblRaidProgress["prev"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["mythic"]["bossCount"]
 											
 										end
 						
@@ -922,7 +919,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				{
 					inherit = "TRP3_ConfigCheck",
 					title = "Previous M+ Score (*)",
-					help = "Show the characters M+ Score from the previous season, if higher than the current season's score.",
+					help = "Show the character's M+ Score from the previous season, if higher than the current season's score.",
 					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE,
 					dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE, TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
 				},
@@ -966,7 +963,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 	TRP3_API.module.registerModule({
 		name = "Raider.IO Tooltip Support",
 		description = "Allows TRP 3 to show Raider.IO information on the tooltip.",
-		version = "1.5.1",
+		version = "1.5.2",
 		id = "trp3_riotooltips",
 		onStart = trp3rioinit,
 		requiredDeps = { { "RaiderIO", "external" }, { "trp3_tooltips", 1.0 } },
