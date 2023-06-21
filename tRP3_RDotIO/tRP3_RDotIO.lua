@@ -845,13 +845,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE, true);
 	
 	
-
-
-		TRP3_API.configuration.registerConfigurationPage({
-			id = "trp3_riotooltips_config",
-			menuText = "Raider.IO",
-			pageText = "Raider.IO Tooltip Support",
-			elements = {
+	TRP3RIOTooltipsConfigElements = {
 				{
 					inherit = "TRP3_ConfigButton",
 					title = "Show Raider.IO Addon Options",
@@ -946,6 +940,12 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				}
 				
 			}
+
+		TRP3_API.configuration.registerConfigurationPage({
+			id = "trp3_riotooltips_config",
+			menuText = "Raider.IO",
+			pageText = "Raider.IO Tooltip Support",
+			elements = TRP3RIOTooltipsConfigElements
 		
 		});
 
