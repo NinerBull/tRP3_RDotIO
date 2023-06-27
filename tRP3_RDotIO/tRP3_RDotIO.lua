@@ -10,13 +10,6 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 	local ignoretooltip = false
 	local loadedstuff = false
 
-	local normalRaidColor = "|cnITEM_GOOD_COLOR:"
-	local normalRaidColorText = "|cnWHITE_FONT_COLOR:"
-	local heroicRaidColor = "|cnITEM_SUPERIOR_COLOR:"
-	local heroicRaidColorText = "|cnWHITE_FONT_COLOR:"
-	local mythicRaidColor = "|cnITEM_EPIC_COLOR:"
-	local mythicRaidColorText = "|cnWHITE_FONT_COLOR:"
-
 	local dividerGraphic = "|Tinterface\\friendsframe\\ui-friendsframe-onlinedivider:4:320:0:0:0:0:0:0:6:8|t"
 
 
@@ -374,7 +367,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 															--Heroic
 															
 														
-															 tblRaidProgress[varRaidType][varRaidName]["heroic"] = {}
+															tblRaidProgress[varRaidType][varRaidName]["heroic"] = {}
 															tblRaidProgress[varRaidType][varRaidName]["heroic"]["progressCount"] = thisPlayerTables['raidProfile']["sortedProgress"][z]["progress"]["progressCount"]
 															
 															tblRaidProgress[varRaidType][varRaidName]["heroic"]["bossCount"] = thisPlayerTables['raidProfile']["sortedProgress"][z]["progress"]["raid"]["bossCount"]
@@ -470,7 +463,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 						local varMPlusPrevTextExtra = ""
 						if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE)) then
 							if (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0) then
-								varMPlusPrevTextExtra = " |cnGRAY_FONT_COLOR:(S" ..  varPlayerScorePrevSeason .. ": " .. varPlayerScorePrevNum ..")|r"
+								varMPlusPrevTextExtra = " " .. GRAY_FONT_COLOR:WrapTextInColorCode("(S" ..  varPlayerScorePrevSeason .. ": " .. varPlayerScorePrevNum .. ")")
 							end
 						end
 					
@@ -502,21 +495,21 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										if (tblRaidProgress["progress"][k]["normal"]) then
 											--Normal
 
-											strRaidProgress = strRaidProgress .. normalRaidColor .. "   N " .. normalRaidColorText .. tblRaidProgress["progress"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["normal"]["bossCount"]
+											strRaidProgress = strRaidProgress .. ITEM_GOOD_COLOR:WrapTextInColorCode("   N ") .. WHITE_FONT_COLOR:WrapTextInColorCode(tblRaidProgress["progress"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["normal"]["bossCount"])
 	
 										end
 										
 										if (tblRaidProgress["progress"][k]["heroic"]) then
 											--Heroic
 											 
-											strRaidProgress = strRaidProgress .. heroicRaidColor .. "   H " .. heroicRaidColorText .. tblRaidProgress["progress"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["heroic"]["bossCount"]
+											strRaidProgress = strRaidProgress .. ITEM_SUPERIOR_COLOR:WrapTextInColorCode("   H ") .. WHITE_FONT_COLOR:WrapTextInColorCode(tblRaidProgress["progress"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["heroic"]["bossCount"])
 		
 										end
 										
 										
 										if (tblRaidProgress["progress"][k]["mythic"]) then
 											--Mythic												
-											strRaidProgress = strRaidProgress .. mythicRaidColor .. "   M " .. mythicRaidColorText .. tblRaidProgress["progress"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["mythic"]["bossCount"]
+											strRaidProgress = strRaidProgress .. ITEM_EPIC_COLOR:WrapTextInColorCode("   M ") .. WHITE_FONT_COLOR:WrapTextInColorCode(tblRaidProgress["progress"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["mythic"]["bossCount"])
 												
 										end
 								
@@ -562,7 +555,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 							local varMPlusMainPrevTextExtra = ""
 							if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE)) then
 								if (varPlayerMainScorePrevNum and varPlayerMainScorePrevNum ~= 0) then
-									varMPlusMainPrevTextExtra = " |cnGRAY_FONT_COLOR:(S" ..  varPlayerMainScorePrevSeason .. ": " .. varPlayerMainScorePrevNum ..")|r"
+									varMPlusMainPrevTextExtra = " " .. GRAY_FONT_COLOR:WrapTextInColorCode("(S" ..  varPlayerMainScorePrevSeason .. ": " .. varPlayerMainScorePrevNum ..")")
 								end
 							end
 							
@@ -602,21 +595,21 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										if (tblRaidProgress["main"][k]["normal"]) then
 											--Normal
 
-											strRaidMainProgress = strRaidMainProgress .. normalRaidColor .. "   N " .. normalRaidColorText .. tblRaidProgress["main"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["normal"]["bossCount"]
+											strRaidMainProgress = strRaidMainProgress .. ITEM_GOOD_COLOR:WrapTextInColorCode("   N ") .. WHITE_FONT_COLOR:WrapTextInColorCode(tblRaidProgress["main"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["normal"]["bossCount"])
 												
 										end
 										
 										if (tblRaidProgress["main"][k]["heroic"]) then
 											--Heroic
 											 
-											strRaidMainProgress = strRaidMainProgress .. heroicRaidColor .. "   H " .. heroicRaidColorText .. tblRaidProgress["main"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["heroic"]["bossCount"]
+											strRaidMainProgress = strRaidMainProgress .. ITEM_SUPERIOR_COLOR:WrapTextInColorCode("   H ") .. WHITE_FONT_COLOR:WrapTextInColorCode(tblRaidProgress["main"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["heroic"]["bossCount"])
 											
 										end
 										
 										
 										if (tblRaidProgress["main"][k]["mythic"]) then
 											--Mythic												
-											strRaidMainProgress = strRaidMainProgress .. mythicRaidColor .. "   M " .. mythicRaidColorText .. tblRaidProgress["main"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["mythic"]["bossCount"]
+											strRaidMainProgress = strRaidMainProgress .. ITEM_EPIC_COLOR:WrapTextInColorCode("   M ") .. WHITE_FONT_COLOR:WrapTextInColorCode(tblRaidProgress["main"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["mythic"]["bossCount"])
 											
 										end
 								
@@ -674,14 +667,14 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										if (tblRaidProgress["prev"][k]["normal"]) then
 											--Normal
 											
-											strRaidProgressPrevious = strRaidProgressPrevious .. normalRaidColor .. "  N " .. normalRaidColorText .. tblRaidProgress["prev"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["normal"]["bossCount"]
+											strRaidProgressPrevious = strRaidProgressPrevious .. ITEM_GOOD_COLOR:WrapTextInColorCode("   N ") .. WHITE_FONT_COLOR:WrapTextInColorCode(tblRaidProgress["prev"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["normal"]["bossCount"])
 
 										end
 										
 										if (tblRaidProgress["prev"][k]["heroic"]) then
 											--Heroic
 											
-											strRaidProgressPrevious = strRaidProgressPrevious .. heroicRaidColor .. "  H " .. heroicRaidColorText .. tblRaidProgress["prev"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["heroic"]["bossCount"]
+											strRaidProgressPrevious = strRaidProgressPrevious .. ITEM_SUPERIOR_COLOR:WrapTextInColorCode("   H ") .. WHITE_FONT_COLOR:WrapTextInColorCode(tblRaidProgress["prev"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["heroic"]["bossCount"])
 												
 										end
 										
@@ -689,7 +682,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										if (tblRaidProgress["prev"][k]["mythic"]) then
 											--Mythic		
 											
-											strRaidProgressPrevious = strRaidProgressPrevious .. mythicRaidColor .. "  M " .. mythicRaidColorText .. tblRaidProgress["prev"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["mythic"]["bossCount"]
+											strRaidProgressPrevious = strRaidProgressPrevious .. ITEM_EPIC_COLOR:WrapTextInColorCode("   M ") .. WHITE_FONT_COLOR:WrapTextInColorCode(tblRaidProgress["prev"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["mythic"]["bossCount"])
 											
 										end
 						
