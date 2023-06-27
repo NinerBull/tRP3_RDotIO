@@ -3,12 +3,14 @@
 ## Version: 1.5.2
 ## Notes: Allows TRP 3 to show Raider.IO information on the tooltip.
 ## Author: NinerBull
-## SavedVariables: tRP3RIOX
 ## DefaultState: enabled
 ## RequiredDeps: totalRP3, RaiderIO
+
 ## X-Category: Tooltip, Roleplay
 ## X-Website: https://github.com/NinerBull/tRP3_RDotIO
 ## X-Curse-Project-ID: 316956
 ## X-WoWI-ID: 25708
+
 ## IconTexture: Interface\Icons\Achievement_dungeon_heroic_gloryoftheraider.blp
+
 tRP3_RDotIO.lua
