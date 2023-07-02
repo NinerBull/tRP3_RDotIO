@@ -10,8 +10,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 	local ignoretooltip = false
 	local loadedstuff = false
 
-	local dividerGraphic = "|Tinterface\\friendsframe\\ui-friendsframe-onlinedivider:4:320:0:0:0:0:0:0:6:8|t"
-
+	local dividerGraphic = CreateSimpleTextureMarkup("interface\\friendsframe\\ui-friendsframe-onlinedivider", 320, 4)
 
 
 	--Fixes inconsistent font sizes
@@ -905,7 +904,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				},
 				{
 					inherit = "TRP3_ConfigCheck",
-					title = "Previous M+ Score (*)",
+					title = "Previous M+ Score " .. LIGHTGRAY_FONT_COLOR:WrapTextInColorCode("(*)"),
 					help = "Show the character's M+ Score from the previous season, if higher than the current season's score.",
 					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE,
 					dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE, TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
@@ -919,14 +918,14 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				},
 				{
 					inherit = "TRP3_ConfigCheck",
-					title = "Main's M+ Score",
+					title = LORE_TEXT_BODY_COLOR:WrapTextInColorCode("Main's M+ Score"),
 					help = "Show the character's main's M+ score on the tooltip, if available.",
 					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN,
 					dependentOnOptions = { (TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE and TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP) },
 				},
 				{
 					inherit = "TRP3_ConfigCheck",
-					title = "Main's Raid Progress",
+					title = LORE_TEXT_BODY_COLOR:WrapTextInColorCode("Main's Raid Progress"),
 					help = "Show the character's main's Raid Progress on the tooltip, if available.",
 					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE_MAIN,
 					dependentOnOptions = { (TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE and TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP) },
