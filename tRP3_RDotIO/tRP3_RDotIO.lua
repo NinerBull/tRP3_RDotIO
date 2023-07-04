@@ -10,10 +10,27 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 	local ignoretooltip = false
 	local loadedstuff = false
 	
-	Trp3RIOTitleColor = NORMAL_FONT_COLOR
-	Trp3RIOTextColor = WHITE_FONT_COLOR
 
 	local dividerGraphic = CreateSimpleTextureMarkup("interface\\friendsframe\\ui-friendsframe-onlinedivider", 320, 4)
+	local Trp3RioOldSeasonColor = CreateColorFromHexString("FF555555")
+	
+	--[[local function tprint (t, s)
+		for k, v in pairs(t) do
+			local kfmt = '["' .. tostring(k) ..'"]'
+			if type(k) ~= 'string' then
+				kfmt = '[' .. k .. ']'
+			end
+			local vfmt = '"'.. tostring(v) ..'"'
+			if type(v) == 'table' then
+				tprint(v, (s or '')..kfmt)
+			else
+				if type(v) ~= 'string' then
+					vfmt = tostring(v)
+				end
+				print(type(t)..(s or '')..kfmt..' = '..vfmt)
+			end
+		end
+	end]]
 	
 
 	--Fixes inconsistent font sizes
@@ -45,20 +62,6 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 
 		local function trp3rioinit()
 			
-			local Trp3RIOTextColorsFunc = TRP3_API.ui.tooltip.getTooltipTextColors
-			
-			if (TRP3_Configuration[CONFIG_TOOLTIP_MAIN_COLOR]) then
-				Trp3RIOTitleColor = TRP3_API.CreateColorFromHexString(TRP3_API.configuration.getValue(CONFIG_TOOLTIP_MAIN_COLOR))
-			else 
-				Trp3RIOTitleColor = WHITE_FONT_COLOR
-			end
-			
-			if (TRP3_Configuration[CONFIG_TOOLTIP_TITLE_COLOR]) then
-				Trp3RIOTitleColor = TRP3_API.CreateColorFromHexString(TRP3_API.configuration.getValue(CONFIG_TOOLTIP_TITLE_COLOR))
-			else 
-				Trp3RIOTitleColor = NORMAL_FONT_COLOR
-			end
-						
 				
 			-- TRP 3 Variables
 
@@ -123,7 +126,20 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				
 		 
 			TRP3_CharacterTooltip:HookScript("OnShow", function(t)
+			
+			
+				Trp3RIOMainColor = WHITE_FONT_COLOR
+				Trp3RIOTitleColor = NORMAL_FONT_COLOR
+			
+			
+				if (TRP3_Configuration[CONFIG_TOOLTIP_MAIN_COLOR]) then
+					Trp3RIOMainColor = TRP3_API.CreateColorFromHexString(TRP3_API.configuration.getValue(CONFIG_TOOLTIP_MAIN_COLOR))
+				end
 				
+				if (TRP3_Configuration[CONFIG_TOOLTIP_TITLE_COLOR]) then
+					Trp3RIOTitleColor = TRP3_API.CreateColorFromHexString(TRP3_API.configuration.getValue(CONFIG_TOOLTIP_TITLE_COLOR))				
+				end
+					
 				
 				local showtooltip = true
 				
@@ -497,7 +513,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 						varMPlusPrevTextExtra = ""
 						if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE) ~= 1) then
 							if (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0) then
-								varMPlusPrevTextExtra = GRAY_FONT_COLOR:WrapTextInColorCode("(S" ..  varPlayerScorePrevSeason .. ": " .. varPlayerScorePrevNum .. ")")
+								varMPlusPrevTextExtra = Trp3RioOldSeasonColor:WrapTextInColorCode("(S" ..  varPlayerScorePrevSeason .. ": " .. varPlayerScorePrevNum .. ")")
 							end
 						end
 						
@@ -535,21 +551,21 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										if (tblRaidProgress["progress"][k]["normal"]) then
 											--Normal
 
-											strRaidProgress = strRaidProgress .. ITEM_GOOD_COLOR:WrapTextInColorCode("   N ") .. Trp3RIOTextColor:WrapTextInColorCode(tblRaidProgress["progress"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["normal"]["bossCount"])
+											strRaidProgress = strRaidProgress .. ITEM_GOOD_COLOR:WrapTextInColorCode("   N ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["progress"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["normal"]["bossCount"])
 	
 										end
 										
 										if (tblRaidProgress["progress"][k]["heroic"]) then
 											--Heroic
 											 
-											strRaidProgress = strRaidProgress .. ITEM_SUPERIOR_COLOR:WrapTextInColorCode("   H ") .. Trp3RIOTextColor:WrapTextInColorCode(tblRaidProgress["progress"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["heroic"]["bossCount"])
+											strRaidProgress = strRaidProgress .. ITEM_SUPERIOR_COLOR:WrapTextInColorCode("   H ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["progress"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["heroic"]["bossCount"])
 		
 										end
 										
 										
 										if (tblRaidProgress["progress"][k]["mythic"]) then
 											--Mythic												
-											strRaidProgress = strRaidProgress .. ITEM_EPIC_COLOR:WrapTextInColorCode("   M ") .. Trp3RIOTextColor:WrapTextInColorCode(tblRaidProgress["progress"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["mythic"]["bossCount"])
+											strRaidProgress = strRaidProgress .. ITEM_EPIC_COLOR:WrapTextInColorCode("   M ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["progress"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["mythic"]["bossCount"])
 												
 										end
 								
@@ -584,6 +600,88 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 						
 						
 						
+						
+						
+						
+						
+						
+						-- Previous Raid Progress
+						if(tblRaidProgress) then	
+							
+							if(tblRaidProgress["prev"]) then
+								-- loop through prev progress
+								
+								
+								
+								for k,v in pairs(tblRaidProgress["prev"]) do
+								
+								strRaidProgressPrevious = ""
+								strRaidProgressPreviousName = ""
+									 
+									 
+									 if ((tblRaidProgress["prev"][k]["thereIsScore"] == true) and (tblRaidProgress["prev"][k]["obsolete"] == false)) then
+									 --
+									 
+										
+										strRaidProgressPreviousName = tblRaidProgress["prev"][k]["name"]
+										
+										
+										if (tblRaidProgress["prev"][k]["normal"]) then
+											--Normal
+											
+											strRaidProgressPrevious = strRaidProgressPrevious .. ITEM_GOOD_COLOR:WrapTextInColorCode("   N ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["prev"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["normal"]["bossCount"])
+
+										end
+										
+										if (tblRaidProgress["prev"][k]["heroic"]) then
+											--Heroic
+											
+											strRaidProgressPrevious = strRaidProgressPrevious .. ITEM_SUPERIOR_COLOR:WrapTextInColorCode("   H ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["prev"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["heroic"]["bossCount"])
+												
+										end
+										
+										
+										if (tblRaidProgress["prev"][k]["mythic"]) then
+											--Mythic		
+											
+											strRaidProgressPrevious = strRaidProgressPrevious .. ITEM_EPIC_COLOR:WrapTextInColorCode("   M ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["prev"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["mythic"]["bossCount"])
+											
+										end
+						
+									 
+									 
+									 end
+									 
+						 
+									 
+
+									if (strRaidProgressPrevious ~= "" and strRaidMainProgress == "") then
+									
+										TRP3_CharacterTooltip:AddDoubleLine(strRaidProgressPreviousName .. " Progress" , strRaidProgressPrevious,  LORE_TEXT_BODY_COLOR.r, LORE_TEXT_BODY_COLOR.g, LORE_TEXT_BODY_COLOR.b );
+									
+									end
+									 
+								end 
+								
+								
+								
+								
+							
+								
+							end --eo prev progress loop
+	
+						
+						end
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 						-- Only show if main's score is higher than this char's score
 						if ((varPlayerMainScore and varPlayerMainScore ~= 0) and (varPlayerMainScore > varPlayerScore)) then
 							
@@ -595,7 +693,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 							varMPlusMainPrevTextExtra = ""
 							if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE) ~= 1) then
 								if (varPlayerMainScorePrevNum and varPlayerMainScorePrevNum ~= 0) then
-									varMPlusMainPrevTextExtra = GRAY_FONT_COLOR:WrapTextInColorCode("(S" ..  varPlayerMainScorePrevSeason .. ": " .. varPlayerMainScorePrevNum ..")") .. " "
+									varMPlusMainPrevTextExtra = Trp3RioOldSeasonColor:WrapTextInColorCode("(S" ..  varPlayerMainScorePrevSeason .. ": " .. varPlayerMainScorePrevNum ..")") .. " "
 								end
 							end
 							
@@ -625,15 +723,16 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 								-- loop through main progress
 								
 								
-								
-								
 								for k,v in pairs(tblRaidProgress["main"]) do
 								
 								strRaidMainProgress = ""
 								strRaidMainProgressName = ""
+								
+								
 									 
 									 
-									 if ((tblRaidProgress["main"][k]["thereIsScore"] == true) and (tblRaidProgress["main"][k]["obsolete"] == false)) then
+									 if ((tblRaidProgress["main"][k]["thereIsScore"] == true)) then
+									 --  and (tblRaidProgress["main"][k]["obsolete"] == false)
 
 										strRaidMainProgressName = tblRaidProgress["main"][k]["name"]
 										
@@ -641,21 +740,21 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										if (tblRaidProgress["main"][k]["normal"]) then
 											--Normal
 
-											strRaidMainProgress = strRaidMainProgress .. ITEM_GOOD_COLOR:WrapTextInColorCode("   N ") .. Trp3RIOTextColor:WrapTextInColorCode(tblRaidProgress["main"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["normal"]["bossCount"])
+											strRaidMainProgress = strRaidMainProgress .. ITEM_GOOD_COLOR:WrapTextInColorCode("   N ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["main"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["normal"]["bossCount"])
 												
 										end
 										
 										if (tblRaidProgress["main"][k]["heroic"]) then
 											--Heroic
 											 
-											strRaidMainProgress = strRaidMainProgress .. ITEM_SUPERIOR_COLOR:WrapTextInColorCode("   H ") .. Trp3RIOTextColor:WrapTextInColorCode(tblRaidProgress["main"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["heroic"]["bossCount"])
+											strRaidMainProgress = strRaidMainProgress .. ITEM_SUPERIOR_COLOR:WrapTextInColorCode("   H ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["main"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["heroic"]["bossCount"])
 											
 										end
 										
 										
 										if (tblRaidProgress["main"][k]["mythic"]) then
 											--Mythic												
-											strRaidMainProgress = strRaidMainProgress .. ITEM_EPIC_COLOR:WrapTextInColorCode("   M ") .. Trp3RIOTextColor:WrapTextInColorCode(tblRaidProgress["main"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["mythic"]["bossCount"])
+											strRaidMainProgress = strRaidMainProgress .. ITEM_EPIC_COLOR:WrapTextInColorCode("   M ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["main"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["mythic"]["bossCount"])
 											
 										end
 								
@@ -689,73 +788,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 						
 						
 						
-						-- Previous Raid Progress
-						if(tblRaidProgress) then	
-							
-							if(tblRaidProgress["prev"]) then
-								-- loop through prev progress
-								
-								
-								
-								for k,v in pairs(tblRaidProgress["prev"]) do
-								
-								strRaidProgressPrevious = ""
-								strRaidProgressPreviousName = ""
-									 
-									 
-									 if ((tblRaidProgress["prev"][k]["thereIsScore"] == true) and (tblRaidProgress["prev"][k]["obsolete"] == false)) then
-									 --
-									 
-										
-										strRaidProgressPreviousName = tblRaidProgress["prev"][k]["name"]
-										
-										
-										if (tblRaidProgress["prev"][k]["normal"]) then
-											--Normal
-											
-											strRaidProgressPrevious = strRaidProgressPrevious .. ITEM_GOOD_COLOR:WrapTextInColorCode("   N ") .. Trp3RIOTextColor:WrapTextInColorCode(tblRaidProgress["prev"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["normal"]["bossCount"])
-
-										end
-										
-										if (tblRaidProgress["prev"][k]["heroic"]) then
-											--Heroic
-											
-											strRaidProgressPrevious = strRaidProgressPrevious .. ITEM_SUPERIOR_COLOR:WrapTextInColorCode("   H ") .. Trp3RIOTextColor:WrapTextInColorCode(tblRaidProgress["prev"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["heroic"]["bossCount"])
-												
-										end
-										
-										
-										if (tblRaidProgress["prev"][k]["mythic"]) then
-											--Mythic		
-											
-											strRaidProgressPrevious = strRaidProgressPrevious .. ITEM_EPIC_COLOR:WrapTextInColorCode("   M ") .. Trp3RIOTextColor:WrapTextInColorCode(tblRaidProgress["prev"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["mythic"]["bossCount"])
-											
-										end
 						
-									 
-									 
-									 end
-									 
-						 
-									 
-
-									if (strRaidProgressPrevious ~= "" and strRaidMainProgress == "") then
-									
-										TRP3_CharacterTooltip:AddDoubleLine(strRaidProgressPreviousName .. " Progress" , strRaidProgressPrevious,  Trp3RIOTextColor.r, Trp3RIOTextColor.g, Trp3RIOTextColor.b );
-									
-									end
-									 
-								end 
-								
-								
-								
-								
-							
-								
-							end --eo prev progress loop
-	
-						
-						end
 
 						
 						
