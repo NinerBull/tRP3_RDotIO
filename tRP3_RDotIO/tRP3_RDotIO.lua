@@ -693,7 +693,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 							varMPlusMainPrevTextExtra = ""
 							if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE) ~= 1) then
 								if (varPlayerMainScorePrevNum and varPlayerMainScorePrevNum ~= 0) then
-									varMPlusMainPrevTextExtra = Trp3RioOldSeasonColor:WrapTextInColorCode("(S" ..  varPlayerMainScorePrevSeason .. ": " .. varPlayerMainScorePrevNum ..")") .. " "
+									varMPlusMainPrevTextExtra = Trp3RioOldSeasonColor:WrapTextInColorCode("(S" ..  varPlayerMainScorePrevSeason .. ": " .. varPlayerMainScorePrevNum ..")")
 								end
 							end
 							
