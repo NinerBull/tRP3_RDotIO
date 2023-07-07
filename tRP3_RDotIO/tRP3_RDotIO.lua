@@ -63,7 +63,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 		local function trp3rioinit()
 			
 				
-			-- TRP 3 Variables
+			-- TRP3 Variables
 
 			TRPRIOTOOLTIPS.CONFIG = {};
 
@@ -1028,7 +1028,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 
 	TRP3_API.module.registerModule({
 		name = "Raider.IO Tooltip Support",
-		description = "Allows TRP 3 to show Raider.IO information on the tooltip.",
+		description = "Allows TRP3 to show Raider.IO information on the tooltip.",
 		version = "1.5.2",
 		id = "trp3_riotooltips",
 		onStart = trp3rioinit,
