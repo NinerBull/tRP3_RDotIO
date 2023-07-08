@@ -1,7 +1,7 @@
-local trp3rio = CreateFrame("Frame")
-trp3rio:RegisterEvent("PLAYER_LOGIN")
-trp3rio:RegisterEvent("PLAYER_LOGOUT")
-trp3rio:RegisterEvent("PLAYER_ENTERING_WORLD")
+local TRP3RIO_Frame = CreateFrame("Frame")
+TRP3RIO_Frame:RegisterEvent("PLAYER_LOGIN")
+TRP3RIO_Frame:RegisterEvent("PLAYER_LOGOUT")
+TRP3RIO_Frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 
 
 if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
@@ -11,8 +11,8 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 	local loadedstuff = false
 	
 
-	local dividerGraphic = CreateSimpleTextureMarkup("interface\\friendsframe\\ui-friendsframe-onlinedivider", 320, 4)
-	local Trp3RioOldSeasonColor = CreateColorFromHexString("FF555555")
+	local TRP3RIO_DividerGraphic = CreateSimpleTextureMarkup("interface\\friendsframe\\ui-friendsframe-onlinedivider", 320, 4)
+	local TRP3RIO_OldSeasonColor = CreateColorFromHexString("FF555555")
 	
 	--[[local function tprint (t, s)
 		for k, v in pairs(t) do
@@ -34,7 +34,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 	
 
 	--Fixes inconsistent font sizes
-	local function fixFontsTrp3RIO (small)
+	local function TRP3RIO_FixFonts(small)
 
 		small = small or false
 
@@ -60,7 +60,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 	TRPRIOTOOLTIPS = select(2, ...);
 
 
-		local function trp3rioinit()
+		local function TRP3RIO_Init()
 			
 				
 			-- TRP3 Variables
@@ -99,7 +99,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 		
 		
 
-	trp3rio:SetScript("OnEvent", function(self, event, arg1, arg2)
+	TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 
 
 		if event == "PLAYER_LOGIN" and loadedstuff == false then
@@ -111,7 +111,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 		 
 
 			hooksecurefunc(TRP3_CharacterTooltip, "AddDoubleLine", function(t)
-					fixFontsTrp3RIO()
+					TRP3RIO_FixFonts()
 			end)
 			
 			
@@ -128,20 +128,20 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 			TRP3_CharacterTooltip:HookScript("OnShow", function(t)
 			
 			
-				Trp3RIOMainColor = WHITE_FONT_COLOR
-				Trp3RIOTitleColor = NORMAL_FONT_COLOR
+				TRP3RIO_MainColor = WHITE_FONT_COLOR
+				TRP3RIO_TitleColor = NORMAL_FONT_COLOR
 			
 			
 				if (TRP3_Configuration[CONFIG_TOOLTIP_MAIN_COLOR]) then
-					Trp3RIOMainColor = TRP3_API.CreateColorFromHexString(TRP3_API.configuration.getValue(CONFIG_TOOLTIP_MAIN_COLOR))
+					TRP3RIO_MainColor = TRP3_API.CreateColorFromHexString(TRP3_API.configuration.getValue(CONFIG_TOOLTIP_MAIN_COLOR))
 				end
 				
 				if (TRP3_Configuration[CONFIG_TOOLTIP_TITLE_COLOR]) then
-					Trp3RIOTitleColor = TRP3_API.CreateColorFromHexString(TRP3_API.configuration.getValue(CONFIG_TOOLTIP_TITLE_COLOR))				
+					TRP3RIO_TitleColor = TRP3_API.CreateColorFromHexString(TRP3_API.configuration.getValue(CONFIG_TOOLTIP_TITLE_COLOR))				
 				end
 					
 				
-				local showtooltip = true
+				local showTooltip = true
 				
 				local thisPlayerToLookUp = t.target
 				--t.target
@@ -151,7 +151,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				
 				if (TRP3_API.dashboard.isPlayerIC() and TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC)) then
 					--hide tooltips, user is IC and hiding IC tooltips
-					showtooltip = false
+					showTooltip = false
 				end
 				
 
@@ -182,10 +182,9 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				
 			if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP)) then
 				
-				if showtooltip then
+				if showTooltip then
 					
-			
-						
+
 						thisPlayerTables = RaiderIO.GetProfile(thisPlayerToLookUp)
 						
 							
@@ -487,7 +486,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 				
 					if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER)) then
 						TRP3_CharacterTooltip:AddDoubleLine(" ", " ")
-						TRP3_CharacterTooltip:AddLine(dividerGraphic)
+						TRP3_CharacterTooltip:AddLine(TRP3RIO_DividerGraphic)
 					end	
 					
 					
@@ -495,7 +494,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					
 					
 					if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_TITLE)) then					
-						TRP3_CharacterTooltip:AddDoubleLine("Raider.IO", " ", Trp3RIOTitleColor.r, Trp3RIOTitleColor.g, Trp3RIOTitleColor.b)
+						TRP3_CharacterTooltip:AddDoubleLine("Raider.IO", " ", TRP3RIO_TitleColor.r, TRP3RIO_TitleColor.g, TRP3RIO_TitleColor.b)
 					end
 					
 					
@@ -513,7 +512,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 						varMPlusPrevTextExtra = ""
 						if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE) ~= 1) then
 							if (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0) then
-								varMPlusPrevTextExtra = Trp3RioOldSeasonColor:WrapTextInColorCode("(S" ..  varPlayerScorePrevSeason .. ": " .. varPlayerScorePrevNum .. ")")
+								varMPlusPrevTextExtra = TRP3RIO_OldSeasonColor:WrapTextInColorCode("(S" ..  varPlayerScorePrevSeason .. ": " .. varPlayerScorePrevNum .. ")")
 							end
 						end
 						
@@ -551,21 +550,21 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										if (tblRaidProgress["progress"][k]["normal"]) then
 											--Normal
 
-											strRaidProgress = strRaidProgress .. ITEM_GOOD_COLOR:WrapTextInColorCode("   N ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["progress"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["normal"]["bossCount"])
+											strRaidProgress = strRaidProgress .. ITEM_GOOD_COLOR:WrapTextInColorCode("   N ") .. TRP3RIO_MainColor:WrapTextInColorCode(tblRaidProgress["progress"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["normal"]["bossCount"])
 	
 										end
 										
 										if (tblRaidProgress["progress"][k]["heroic"]) then
 											--Heroic
 											 
-											strRaidProgress = strRaidProgress .. ITEM_SUPERIOR_COLOR:WrapTextInColorCode("   H ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["progress"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["heroic"]["bossCount"])
+											strRaidProgress = strRaidProgress .. ITEM_SUPERIOR_COLOR:WrapTextInColorCode("   H ") .. TRP3RIO_MainColor:WrapTextInColorCode(tblRaidProgress["progress"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["heroic"]["bossCount"])
 		
 										end
 										
 										
 										if (tblRaidProgress["progress"][k]["mythic"]) then
 											--Mythic												
-											strRaidProgress = strRaidProgress .. ITEM_EPIC_COLOR:WrapTextInColorCode("   M ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["progress"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["mythic"]["bossCount"])
+											strRaidProgress = strRaidProgress .. ITEM_EPIC_COLOR:WrapTextInColorCode("   M ") .. TRP3RIO_MainColor:WrapTextInColorCode(tblRaidProgress["progress"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["progress"][k]["mythic"]["bossCount"])
 												
 										end
 								
@@ -629,14 +628,14 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										if (tblRaidProgress["prev"][k]["normal"]) then
 											--Normal
 											
-											strRaidProgressPrevious = strRaidProgressPrevious .. ITEM_GOOD_COLOR:WrapTextInColorCode("   N ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["prev"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["normal"]["bossCount"])
+											strRaidProgressPrevious = strRaidProgressPrevious .. ITEM_GOOD_COLOR:WrapTextInColorCode("   N ") .. TRP3RIO_MainColor:WrapTextInColorCode(tblRaidProgress["prev"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["normal"]["bossCount"])
 
 										end
 										
 										if (tblRaidProgress["prev"][k]["heroic"]) then
 											--Heroic
 											
-											strRaidProgressPrevious = strRaidProgressPrevious .. ITEM_SUPERIOR_COLOR:WrapTextInColorCode("   H ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["prev"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["heroic"]["bossCount"])
+											strRaidProgressPrevious = strRaidProgressPrevious .. ITEM_SUPERIOR_COLOR:WrapTextInColorCode("   H ") .. TRP3RIO_MainColor:WrapTextInColorCode(tblRaidProgress["prev"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["heroic"]["bossCount"])
 												
 										end
 										
@@ -644,7 +643,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										if (tblRaidProgress["prev"][k]["mythic"]) then
 											--Mythic		
 											
-											strRaidProgressPrevious = strRaidProgressPrevious .. ITEM_EPIC_COLOR:WrapTextInColorCode("   M ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["prev"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["mythic"]["bossCount"])
+											strRaidProgressPrevious = strRaidProgressPrevious .. ITEM_EPIC_COLOR:WrapTextInColorCode("   M ") .. TRP3RIO_MainColor:WrapTextInColorCode(tblRaidProgress["prev"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["prev"][k]["mythic"]["bossCount"])
 											
 										end
 						
@@ -693,7 +692,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 							varMPlusMainPrevTextExtra = ""
 							if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE) ~= 1) then
 								if (varPlayerMainScorePrevNum and varPlayerMainScorePrevNum ~= 0) then
-									varMPlusMainPrevTextExtra = Trp3RioOldSeasonColor:WrapTextInColorCode("(S" ..  varPlayerMainScorePrevSeason .. ": " .. varPlayerMainScorePrevNum ..")")
+									varMPlusMainPrevTextExtra = TRP3RIO_OldSeasonColor:WrapTextInColorCode("(S" ..  varPlayerMainScorePrevSeason .. ": " .. varPlayerMainScorePrevNum ..")")
 								end
 							end
 							
@@ -740,21 +739,21 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 										if (tblRaidProgress["main"][k]["normal"]) then
 											--Normal
 
-											strRaidMainProgress = strRaidMainProgress .. ITEM_GOOD_COLOR:WrapTextInColorCode("   N ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["main"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["normal"]["bossCount"])
+											strRaidMainProgress = strRaidMainProgress .. ITEM_GOOD_COLOR:WrapTextInColorCode("   N ") .. TRP3RIO_MainColor:WrapTextInColorCode(tblRaidProgress["main"][k]["normal"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["normal"]["bossCount"])
 												
 										end
 										
 										if (tblRaidProgress["main"][k]["heroic"]) then
 											--Heroic
 											 
-											strRaidMainProgress = strRaidMainProgress .. ITEM_SUPERIOR_COLOR:WrapTextInColorCode("   H ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["main"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["heroic"]["bossCount"])
+											strRaidMainProgress = strRaidMainProgress .. ITEM_SUPERIOR_COLOR:WrapTextInColorCode("   H ") .. TRP3RIO_MainColor:WrapTextInColorCode(tblRaidProgress["main"][k]["heroic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["heroic"]["bossCount"])
 											
 										end
 										
 										
 										if (tblRaidProgress["main"][k]["mythic"]) then
 											--Mythic												
-											strRaidMainProgress = strRaidMainProgress .. ITEM_EPIC_COLOR:WrapTextInColorCode("   M ") .. Trp3RIOMainColor:WrapTextInColorCode(tblRaidProgress["main"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["mythic"]["bossCount"])
+											strRaidMainProgress = strRaidMainProgress .. ITEM_EPIC_COLOR:WrapTextInColorCode("   M ") .. TRP3RIO_MainColor:WrapTextInColorCode(tblRaidProgress["main"][k]["mythic"]["progressCount"] .. "/" .. tblRaidProgress["main"][k]["mythic"]["bossCount"])
 											
 										end
 								
@@ -811,7 +810,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 					
 					
 					
-					end --eo showtooltip
+					end --eo showTooltip
 					
 				
 				
@@ -848,7 +847,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 						
 							if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER)) then
 								TRP3_CharacterTooltip:AddLine(" ")
-								TRP3_CharacterTooltip:AddLine(dividerGraphic)
+								TRP3_CharacterTooltip:AddLine(TRP3RIO_DividerGraphic)
 							end	
 						
 							RaiderIO.ShowProfile(TRP3_CharacterTooltip, thisPlayerToLookUp)
@@ -1031,7 +1030,7 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 		description = "Allows TRP3 to show Raider.IO information on the tooltip.",
 		version = "1.5.2",
 		id = "trp3_riotooltips",
-		onStart = trp3rioinit,
+		onStart = TRP3RIO_Init,
 		requiredDeps = { { "RaiderIO", "external" }, { "trp3_tooltips", 1.0 } },
 		minVersion = 110,
 	});
@@ -1042,25 +1041,26 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 
 
 	-- Slash Command
-	local function trp3RDotIOOpenConfig()
+	local function TRP3RIO_OpenConfig()
 		TRP3_API.navigation.openMainFrame();
 		TRP3_API.navigation.page.setPage("main_config_aaa_general");
 		TRP3_API.navigation.page.setPage("trp3_riotooltips_config");
 	end
 
-	local trp3RDotIOOpenConfigCommand = {
+	local TRP3RIO_OpenConfigCommand = {
 		id = "rio",
 		helpLine = " Open the Raider.IO Tooltip Config.",
 		handler = function()
-			trp3RDotIOOpenConfig();
+			TRP3RIO_OpenConfig();
 		end,
 	}
 
-	TRP3_API.slash.registerCommand(trp3RDotIOOpenConfigCommand);
+	TRP3_API.slash.registerCommand(TRP3RIO_OpenConfigCommand);
 
 
 else
 
 	-- Retail Only
+	TRP3_API.utils.message.displayMessage(TRP3_API.Colors.Cyan("Raider.IO Tooltip Support") .. " is only supported in Retail WoW.",1)
 
 end
