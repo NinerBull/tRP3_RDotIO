@@ -1,6 +1,8 @@
 # Total RP 3: Raider.IO Tooltip Support
 An addon for World of Warcraft Dragonflight!
 
+![Info Img](https://cdn-wow.mmoui.com/preview/pvw75796.jpg)
+
 ## About
 This _unofficial_ module for [Total RP 3](https://github.com/Total-RP/Total-RP-3) enables [Raider.IO](https://github.com/RaiderIO/raiderio-addon)'s tooltip functionality to work with TRP3's custom tooltip.
 
