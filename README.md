@@ -19,6 +19,7 @@ Download the latest version from one of the places below, and unzip it in your `
 
 * [CurseForge](https://www.curseforge.com/wow/addons/raider-io-total-rp-3-tooltips)
 * [WoWInterface](https://www.wowinterface.com/downloads/info25708-R.IOInfoinTRP3Tooltips.html)
+* [Wago](https://addons.wago.io/addons/raider-io-total-rp-3-tooltips)
 * [GitHub](https://github.com/NinerBull/tRP3_RDotIO/releases/latest)
 * Or put `https://github.com/NinerBull/tRP3_RDotIO` into your favourite Addon Manager
 
