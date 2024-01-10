@@ -1,6 +1,6 @@
-## Interface: 100200
+## Interface: 100205
 ## Title: Total RP 3: Raider.IO Tooltip Support
-## Version: 1.5.5
+## Version: 1.5.6
 ## Notes: Allows TRP3 to show Raider.IO information on the tooltip.
 ## Author: NinerBull
 ## DefaultState: enabled
