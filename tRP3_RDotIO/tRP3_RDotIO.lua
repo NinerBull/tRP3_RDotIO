@@ -316,7 +316,6 @@ TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 
 								-- Raid stuff
 								
-								TRP3RIO_TPrint(thisPlayerTables['raidProfile'])
 			
 			
 								for z=1,#thisPlayerTables['raidProfile']['sortedProgress']  do
