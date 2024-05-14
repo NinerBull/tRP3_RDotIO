@@ -13,7 +13,7 @@ local loadedstuff = false
 local TRP3RIO_DividerGraphic = CreateSimpleTextureMarkup("interface\\friendsframe\\ui-friendsframe-onlinedivider", 320, 4)
 local TRP3RIO_OldSeasonColor = CreateColorFromHexString("FF555555")
 
---[[local function tprint (t, s)
+local function TRP3RIO_TPrint (t, s)
 	for k, v in pairs(t) do
 		local kfmt = '["' .. tostring(k) ..'"]'
 		if type(k) ~= 'string' then
@@ -21,7 +21,7 @@ local TRP3RIO_OldSeasonColor = CreateColorFromHexString("FF555555")
 		end
 		local vfmt = '"'.. tostring(v) ..'"'
 		if type(v) == 'table' then
-			tprint(v, (s or '')..kfmt)
+			TRP3RIO_TPrint(v, (s or '')..kfmt)
 		else
 			if type(v) ~= 'string' then
 				vfmt = tostring(v)
@@ -29,7 +29,7 @@ local TRP3RIO_OldSeasonColor = CreateColorFromHexString("FF555555")
 			print(type(t)..(s or '')..kfmt..' = '..vfmt)
 		end
 	end
-end]]
+end
 
 
 --Fixes inconsistent font sizes
@@ -96,7 +96,13 @@ TRPRIOTOOLTIPS = select(2, ...);
 			end
 		end
 	
-	
+		-- Don't use Minified Tooltip in Classic
+		if (WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE) then
+			TRP3_API.configuration.setValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP, false)
+			TRP3_API.configuration.setValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER, false);
+		end
+		
+		
 
 TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 
@@ -143,7 +149,7 @@ TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 			local showTooltip = true
 			
 			local thisPlayerToLookUp = t.target
-			--t.target
+			--local thisPlayerToLookUp = "X-Y"
 			
 			
 			--check if IC/OOC and if disable when IC is enabled
@@ -309,6 +315,8 @@ TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 								 if (thisPlayerTables['raidProfile']) then
 
 								-- Raid stuff
+								
+								TRP3RIO_TPrint(thisPlayerTables['raidProfile'])
 			
 			
 								for z=1,#thisPlayerTables['raidProfile']['sortedProgress']  do
@@ -840,6 +848,11 @@ TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 							showThisTooltip = true
 						end
 					end
+					
+					if (TRP3_API.dashboard.isPlayerIC() and TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC)) then
+						--hide tooltips, user is IC and hiding IC tooltips
+						showThisTooltip = false
+					end
 				
 				
 					if (showThisTooltip == true) then
@@ -902,6 +915,7 @@ local TRPRIOTOOLTIPS_PREVDROPDOWN = {
 	{ "After Current M+ Score", 3 },	
 }
 
+if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 
 TRP3RIOTooltipsConfigElements = {
 			{
@@ -1003,7 +1017,44 @@ TRP3RIOTooltipsConfigElements = {
 				dependentOnOptions = { (TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE and TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP) },
 			}
 			
-		}
+}
+
+else
+
+	TRP3RIOTooltipsConfigElements = {
+			{
+				inherit = "TRP3_ConfigButton",
+				title = "Show Raider.IO Addon Options",
+				help = "Open the Options for the actual Raider.IO Addon.",
+				text = "Open R.IO Options",
+				callback = function()
+					DEFAULT_CHAT_FRAME.editBox:SetText("/raiderio") ChatEdit_SendText(DEFAULT_CHAT_FRAME.editBox, 0) 
+				end,
+			},
+			{
+				inherit = "TRP3_ConfigNote",
+				title = " ",
+			},
+			{
+				inherit = "TRP3_ConfigH1",
+				title = "Main Settings",
+			},
+			{
+				inherit = "TRP3_ConfigDropDown",
+				widgetName = "trp3_riotooltips_hide_tooltips_ic",
+				title = "Show Raider.IO Info on TRP3 Tooltip",
+				help = "Determine whether R.IO Info should show if you are IC or OOC.",
+				listContent = TRPRIOTOOLTIPS_DROPDOWNSTUFF,
+				configKey = TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC,
+				listCallback = function(value)
+					TRP3_API.configuration.setValue(TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC, value)
+				end,
+
+			}
+			
+	}
+
+end
 
 	TRP3_API.configuration.registerConfigurationPage({
 		id = "trp3_riotooltips_config",
@@ -1027,7 +1078,7 @@ end
 TRP3_API.module.registerModule({
 	name = "Raider.IO Tooltip Support",
 	description = "Allows TRP3 to show Raider.IO information on the tooltip.",
-	version = "1.5.8",
+	version = "1.5.9",
 	id = "trp3_riotooltips",
 	onStart = TRP3RIO_Init,
 	requiredDeps = { { "RaiderIO", "external" }, { "trp3_tooltips", 1.0 } },
