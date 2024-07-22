@@ -1081,7 +1081,7 @@ TRP3_API.module.registerModule({
 	id = "trp3_riotooltips",
 	onStart = TRP3RIO_Init,
 	requiredDeps = { { "RaiderIO", "external" }, { "trp3_tooltips", 1.0 } },
-	minVersion = 110,
+	minVersion = 130,
 });
 
 

@@ -1,4 +1,4 @@
-## Interface: 110000, 40400, 11503
+## Interface: 110000, 110002, 40400, 11503
 ## Title: Total RP 3: Raider.IO Tooltip Support
 ## Version: 1.5.10
 ## Notes: Allows TRP3 to show Raider.IO information on the tooltip.
