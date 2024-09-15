@@ -1,3 +1,17 @@
+--[[
+========================================
+Total RP 3: Raider.IO Tooltip Support
+https://github.com/NinerBull/tRP3_RDotIO
+========================================
+
+------------------------------------------
+Requires both Total RP 3 and Raider.IO
+https://github.com/Total-RP/Total-RP-3
+https://github.com/RaiderIO/raiderio-addon
+------------------------------------------
+]]--
+
+
 local TRP3RIO_Frame = CreateFrame("Frame")
 TRP3RIO_Frame:RegisterEvent("PLAYER_LOGIN")
 TRP3RIO_Frame:RegisterEvent("PLAYER_LOGOUT")
@@ -13,6 +27,7 @@ local loadedstuff = false
 local TRP3RIO_DividerGraphic = CreateSimpleTextureMarkup("interface\\friendsframe\\ui-friendsframe-onlinedivider", 320, 4)
 local TRP3RIO_OldSeasonColor = CreateColorFromHexString("FF555555")
 
+-- Debug function, prints LUA tables
 local function TRP3RIO_TPrint (t, s)
 	for k, v in pairs(t) do
 		local kfmt = '["' .. tostring(k) ..'"]'
@@ -34,9 +49,7 @@ end
 
 --Fixes inconsistent font sizes
 local function TRP3RIO_FixFonts(small)
-
 	small = small or false
-
 	local thisFontSize = TRP3_API.ui.tooltip.getSubLineFontSize()
 
 	if (small == true) then
@@ -54,14 +67,12 @@ local function TRP3RIO_FixFonts(small)
 end
 
 
--- variable for trp3 config
+-- Variable for TPR3 config
 
 TRPRIOTOOLTIPS = select(2, ...);
 
-
 	local function TRP3RIO_Init()
 		
-			
 		-- TRP3 Variables
 
 		TRPRIOTOOLTIPS.CONFIG = {};
@@ -108,30 +119,20 @@ TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 
 
 	if event == "PLAYER_LOGIN" and loadedstuff == false then
-	
-	
-	
+
 	 if TRP3_CharacterTooltip ~= nil then
-	 
 	 
 
 		hooksecurefunc(TRP3_CharacterTooltip, "AddDoubleLine", function(t)
 				TRP3RIO_FixFonts()
 		end)
-		
-		
-		
-		
+
 		hooksecurefunc(TRP3_CharacterTooltip, "AddLine", function(t)
 		
 		end)
-		
-		
-		
-			
+
 	 
 		TRP3_CharacterTooltip:HookScript("OnShow", function(t)
-		
 		
 			TRP3RIO_MainColor = WHITE_FONT_COLOR
 			TRP3RIO_TitleColor = NORMAL_FONT_COLOR
@@ -152,10 +153,9 @@ TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 			--local thisPlayerToLookUp = "X-Y"
 			
 			
-			--check if IC/OOC and if disable when IC is enabled
-			
+			--Check if IC/OOC and if disable when IC is enabled
 			if (TRP3_API.dashboard.isPlayerIC() and TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC)) then
-				--hide tooltips, user is IC and hiding IC tooltips
+				--Hide tooltips, user is IC and hiding IC tooltips
 				showTooltip = false
 			end
 			
