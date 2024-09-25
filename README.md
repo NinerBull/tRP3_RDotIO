@@ -10,9 +10,9 @@ By default, Raider.IO's original tooltip formatting will be used.
 Alternatively, you can enable a minified tooltip, which contains only Mythic+ Rating and Raid Progress, in order to not bloat the tooltip too much.
 
 ## Compatibility
-* **The War Within** - 11.0.0
-* **Cataclysm Classic** - 4.4.0
-* **Classic Era** - 1.15.3
+* **The War Within** - 11.0.2 & 11.0.5
+* **Cataclysm Classic** - 4.4.0 & 4.4.1
+* **Classic Era** - 1.15.4
 
 
 
