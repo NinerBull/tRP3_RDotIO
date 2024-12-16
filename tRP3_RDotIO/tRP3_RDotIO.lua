@@ -11,12 +11,14 @@ https://github.com/RaiderIO/raiderio-addon
 ------------------------------------------
 ]]--
 
+local _, L = ...;
+
 
 local TRP3RIO_Frame = CreateFrame("Frame")
 TRP3RIO_Frame:RegisterEvent("PLAYER_LOGIN")
 TRP3RIO_Frame:RegisterEvent("PLAYER_LOGOUT")
 TRP3RIO_Frame:RegisterEvent("PLAYER_ENTERING_WORLD")
-
+TRP3RIO_Frame:RegisterEvent("MODIFIER_STATE_CHANGED")
 
 
 
@@ -500,7 +502,7 @@ TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 				
 				
 				if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_TITLE)) then					
-					TRP3_CharacterTooltip:AddDoubleLine("Raider.IO", " ", TRP3RIO_TitleColor.r, TRP3RIO_TitleColor.g, TRP3RIO_TitleColor.b)
+					TRP3_CharacterTooltip:AddDoubleLine(L.RAIDER_IO, " ", TRP3RIO_TitleColor.r, TRP3RIO_TitleColor.g, TRP3RIO_TitleColor.b)
 				end
 				
 				
@@ -528,7 +530,7 @@ TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 							varMPlusTextExtra = varMPlusPrevTextExtra .. " " .. varMPlusTextExtra
 						end
 				
-					TRP3_CharacterTooltip:AddDoubleLine("M+ Score", varMPlusTextExtra:gsub("^%s*(.-)%s*$", "%1") ,  LORE_TEXT_BODY_COLOR.r, LORE_TEXT_BODY_COLOR.g, LORE_TEXT_BODY_COLOR.b, RaiderIO.GetScoreColor(varPlayerScore))
+					TRP3_CharacterTooltip:AddDoubleLine(L.MPLUS_SCORE, varMPlusTextExtra:gsub("^%s*(.-)%s*$", "%1") ,  LORE_TEXT_BODY_COLOR.r, LORE_TEXT_BODY_COLOR.g, LORE_TEXT_BODY_COLOR.b, RaiderIO.GetScoreColor(varPlayerScore))
 				end
 				
 				
@@ -582,7 +584,7 @@ TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 								
 								if (strRaidProgress ~= "") then
 										
-									TRP3_CharacterTooltip:AddDoubleLine(strRaidMainName .. " Progress" , strRaidProgress,  LORE_TEXT_BODY_COLOR.r, LORE_TEXT_BODY_COLOR.g, LORE_TEXT_BODY_COLOR.b );
+									TRP3_CharacterTooltip:AddDoubleLine(strRaidMainName .. " " .. L.PROGRESS , strRaidProgress,  LORE_TEXT_BODY_COLOR.r, LORE_TEXT_BODY_COLOR.g, LORE_TEXT_BODY_COLOR.b );
 									
 									
 									
@@ -662,7 +664,7 @@ TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 
 								if (strRaidProgressPrevious ~= "" and strRaidMainProgress == "") then
 								
-									TRP3_CharacterTooltip:AddDoubleLine(strRaidProgressPreviousName .. " Progress" , strRaidProgressPrevious,  LORE_TEXT_BODY_COLOR.r, LORE_TEXT_BODY_COLOR.g, LORE_TEXT_BODY_COLOR.b );
+									TRP3_CharacterTooltip:AddDoubleLine(strRaidProgressPreviousName .. " " .. L.PROGRESS , strRaidProgressPrevious,  LORE_TEXT_BODY_COLOR.r, LORE_TEXT_BODY_COLOR.g, LORE_TEXT_BODY_COLOR.b );
 								
 								end
 								 
@@ -708,7 +710,7 @@ TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 							varMPlusMainTextExtra = varMPlusMainPrevTextExtra .. " " .. varMPlusMainTextExtra
 						end
 						
-						TRP3_CharacterTooltip:AddDoubleLine("Main's M+ Score", varMPlusMainTextExtra:gsub("^%s*(.-)%s*$", "%1") ,  LIGHTGRAY_FONT_COLOR.r, LIGHTGRAY_FONT_COLOR.g, LIGHTGRAY_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerMainScore));
+						TRP3_CharacterTooltip:AddDoubleLine(L.MPLUS_SCORE_MAIN, varMPlusMainTextExtra:gsub("^%s*(.-)%s*$", "%1") ,  LIGHTGRAY_FONT_COLOR.r, LIGHTGRAY_FONT_COLOR.g, LIGHTGRAY_FONT_COLOR.b, RaiderIO.GetScoreColor(varPlayerMainScore));
 						
 						
 					end
@@ -768,7 +770,7 @@ TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 								 
 								 if (strRaidMainProgress ~= "") then
 						
-									TRP3_CharacterTooltip:AddDoubleLine("Main's " .. strRaidMainProgressName .. " Progress" , strRaidMainProgress,  LIGHTGRAY_FONT_COLOR.r, LIGHTGRAY_FONT_COLOR.g, LIGHTGRAY_FONT_COLOR.b );
+									TRP3_CharacterTooltip:AddDoubleLine(string.format(L.PROGRESS_MAIN, strRaidMainProgressName) , strRaidMainProgress,  LIGHTGRAY_FONT_COLOR.r, LIGHTGRAY_FONT_COLOR.g, LIGHTGRAY_FONT_COLOR.b );
 							
 														
 													
@@ -886,11 +888,41 @@ TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 			
 	end
 	
+	--[[
+	if event == "MODIFIER_STATE_CHANGED" then
+	
+		if (TRP3_CharacterTooltip:IsShown()) then
+		
+			if (arg1 == "LSHIFT") or (arg1 == "RSHIFT") then
+			
+				TRP3_CharacterTooltip:Show()
+				
+				if arg2 == 1 then
+					-- SHIFT is pressed
+					
+						
+				else
+					-- SHIFT was let go 
+				end
+						
+			
+			end 
+		
+		end
+	
+	end 
+	]]--
+
 	
 	
 end)
 
-
+TRP3_API.RegisterCallback(TRP3_API.GameEvents, "MODIFIER_STATE_CHANGED", function()
+	--[[if (TRP3_CharacterTooltip:IsShown()) then
+		TRP3_CharacterTooltip:Hide()
+		TRP3_CharacterTooltip:Show()
+	end]]
+end);
 
 
 
@@ -904,14 +936,14 @@ end)
 
 --Config stuff
 local TRPRIOTOOLTIPS_DROPDOWNSTUFF = {
-	{ "When IC and OOC", false },
-	{ "When OOC Only", true }
+	{ L.DROPDOWN_IC_OOC, false },
+	{ L.DROPDOWN_OOC_ONL, true }
 }
 
 local TRPRIOTOOLTIPS_PREVDROPDOWN = {
-	{ "Don't Show", 1 },
-	{ "Before Current M+ Score", 2 },
-	{ "After Current M+ Score", 3 },	
+	{ L.PREVDROPDOWN_DONTSHOW, 1 },
+	{ L.PREVDROPDOWN_BEFORE, 2 },
+	{ L.PREVDROPDOWN_AFTER, 3 },	
 }
 
 if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
@@ -919,9 +951,9 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 TRP3RIOTooltipsConfigElements = {
 			{
 				inherit = "TRP3_ConfigButton",
-				title = "Show Raider.IO Addon Options",
-				help = "Open the Options for the actual Raider.IO Addon.",
-				text = "Open R.IO Options",
+				title = L.CONFIG_TITLE,
+				help = L.CONFIG_TITLE_HELP,
+				text = L.CONFIG_TITLE_TEXT,
 				callback = function()
 					DEFAULT_CHAT_FRAME.editBox:SetText("/raiderio") ChatEdit_SendText(DEFAULT_CHAT_FRAME.editBox, 0) 
 				end,
@@ -932,13 +964,13 @@ TRP3RIOTooltipsConfigElements = {
 			},
 			{
 				inherit = "TRP3_ConfigH1",
-				title = "Main Settings",
+				title = L.CONFIG_MAINSETTINGS_TITLE,
 			},
 			{
 				inherit = "TRP3_ConfigDropDown",
 				widgetName = "trp3_riotooltips_hide_tooltips_ic",
-				title = "Show Raider.IO Info on TRP3 Tooltip",
-				help = "Determine whether R.IO Info should show if you are IC or OOC.",
+				title = L.CONFIG_SHOWRIO_TITLE,
+				help = L.CONFIG_SHOWRIO_HELP,
 				listContent = TRPRIOTOOLTIPS_DROPDOWNSTUFF,
 				configKey = TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC,
 				listCallback = function(value)
@@ -948,14 +980,14 @@ TRP3RIOTooltipsConfigElements = {
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
-				title = "Add Divider Graphic above Raider.IO Info",
-				help = "If checked, adds a divider graphic to seperate the main TRP3 Tooltip Info from the Raider.IO Tooltip Info.",
+				title = L.CONFIG_DIVGRAPHIC_TITLE,
+				help = L.CONFIG_DIVGRAPHIC_HELP,
 				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
-				title = "Use Minified Raider.IO Tooltip",
-				help = "If checked, the addon's minified formatting will be used instead of the original Raider.IO tooltip info.",
+				title = L.CONFIG_MINIFIED_TITLE,
+				help = L.CONFIG_MINIFIED_HELP,
 				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP
 			},
 			
@@ -965,27 +997,27 @@ TRP3RIOTooltipsConfigElements = {
 			},
 			{
 				inherit = "TRP3_ConfigH1",
-				title = "Minified Tooltip Settings",
+				title = L.CONFIG_MINIFIED_SETTINGS_TITLE,
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
-				title = "Show Raider.IO Title",
-				help = "Show the Raider.IO Title Text.",
+				title = L.CONFIG_MINIFIED_SHOWRIOTITLE_TITLE,
+				help = L.CONFIG_MINIFIED_SHOWRIOTITLE_HELP,
 				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_TITLE,
 				dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
-				title =  "M+ Score",
-				help = "Show the character's M+ Score on the tooltip.",
+				title =  L.CONFIG_MINIFIED_SHOWMPLUS_TITLE,
+				help = L.CONFIG_MINIFIED_SHOWMPLUS_HELP,
 				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE,
 				dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
 			},
 			{
 				inherit = "TRP3_ConfigDropDown",
 				widgetName = "trp3_riotooltips_enable_prev_score",
-				title = "Previous M+ Score " .. LIGHTGRAY_FONT_COLOR:WrapTextInColorCode("(*)"),
-				help = "Show the character's M+ Score from the previous season, if higher than the current season's score.",
+				title = L.CONFIG_MINIFIED_SHOWPREVMPLUS_TITLE .. " " .. LIGHTGRAY_FONT_COLOR:WrapTextInColorCode("(*)"),
+				help = L.CONFIG_MINIFIED_SHOWPREVMPLUS_HELP,
 				dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE, TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
 				listContent = TRPRIOTOOLTIPS_PREVDROPDOWN,
 				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE,
@@ -996,22 +1028,22 @@ TRP3RIOTooltipsConfigElements = {
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
-				title = "Raid Progress",
-				help = "Show the character's Raid Progress on the tooltip.",
+				title = L.CONFIG_MINIFIED_RAIDPROG_TITLE,
+				help = L.CONFIG_MINIFIED_RAIDPROG_HELP,
 				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE,
 				dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
-				title = LORE_TEXT_BODY_COLOR:WrapTextInColorCode("Main's M+ Score"),
-				help = "Show the character's main's M+ score on the tooltip, if available.",
+				title = LORE_TEXT_BODY_COLOR:WrapTextInColorCode(L.CONFIG_MINIFIED_MAINMPLUS_TITLE),
+				help = L.CONFIG_MINIFIED_MAINMPLUS_HELP,
 				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN,
 				dependentOnOptions = { (TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE and TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP) },
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
-				title = LORE_TEXT_BODY_COLOR:WrapTextInColorCode("Main's Raid Progress"),
-				help = "Show the character's main's Raid Progress on the tooltip, if available.",
+				title = LORE_TEXT_BODY_COLOR:WrapTextInColorCode(L.CONFIG_MINIFIED_RAIDPROG_TITLE),
+				help = L.CONFIG_MINIFIED_RAIDPROG_HELP,
 				configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE_MAIN,
 				dependentOnOptions = { (TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE and TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP) },
 			}
@@ -1023,9 +1055,9 @@ else
 	TRP3RIOTooltipsConfigElements = {
 			{
 				inherit = "TRP3_ConfigButton",
-				title = "Show Raider.IO Addon Options",
-				help = "Open the Options for the actual Raider.IO Addon.",
-				text = "Open R.IO Options",
+				title = L.CONFIG_TITLE,
+				help = L.CONFIG_TITLE_HELP,
+				text = L.CONFIG_TITLE_TEXT,
 				callback = function()
 					DEFAULT_CHAT_FRAME.editBox:SetText("/raiderio") ChatEdit_SendText(DEFAULT_CHAT_FRAME.editBox, 0) 
 				end,
@@ -1036,13 +1068,13 @@ else
 			},
 			{
 				inherit = "TRP3_ConfigH1",
-				title = "Main Settings",
+				title = L.CONFIG_MAINSETTINGS_TITLE,
 			},
 			{
 				inherit = "TRP3_ConfigDropDown",
 				widgetName = "trp3_riotooltips_hide_tooltips_ic",
-				title = "Show Raider.IO Info on TRP3 Tooltip",
-				help = "Determine whether R.IO Info should show if you are IC or OOC.",
+				title = L.CONFIG_SHOWRIO_TITLE,
+				help = L.CONFIG_SHOWRIO_HELP,
 				listContent = TRPRIOTOOLTIPS_DROPDOWNSTUFF,
 				configKey = TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC,
 				listCallback = function(value)
@@ -1057,8 +1089,8 @@ end
 
 	TRP3_API.configuration.registerConfigurationPage({
 		id = "trp3_riotooltips_config",
-		menuText = "Raider.IO",
-		pageText = "Raider.IO Tooltip Support",
+		menuText = L.RAIDER_IO,
+		pageText = L.ADDON_NAME,
 		elements = TRP3RIOTooltipsConfigElements
 	
 	});
@@ -1075,8 +1107,8 @@ end
 
 
 TRP3_API.module.registerModule({
-	name = "Raider.IO Tooltip Support",
-	description = "Allows TRP3 to show Raider.IO information on the tooltip.",
+	name = L.ADDON_NAME,
+	description = L.ADDON_DESC,
 	version = "1.5.12",
 	id = "trp3_riotooltips",
 	onStart = TRP3RIO_Init,
@@ -1098,7 +1130,7 @@ end
 
 local TRP3RIO_OpenConfigCommand = {
 	id = "rio",
-	helpLine = " Open the Raider.IO Tooltip Config.",
+	helpLine = " ".. L.ADCOM_HELP,
 	handler = function()
 		TRP3RIO_OpenConfig();
 	end,
