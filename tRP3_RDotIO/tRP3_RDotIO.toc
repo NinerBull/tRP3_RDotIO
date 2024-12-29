@@ -1,4 +1,4 @@
-## Interface: 110007, 40401, 11505
+## Interface: 110007, 40401, 11505, 11506
 ## Title: Total RP 3: Raider.IO Tooltip Support
 ## Version: 1.5.12
 ## Notes: Allows TRP3 to show Raider.IO information on the tooltip.
@@ -25,6 +25,5 @@ locale/locale.enUS.lua
 # locale/locale.esMX.lua
 # locale/locale.ruRU.lua
 # locale/locale.ptBR.lua
-# locale/locale.ptPT.lua
 # locale/locale.itIT.lua
 tRP3_RDotIO.lua
