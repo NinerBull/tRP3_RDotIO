@@ -1,0 +1,10 @@
+## Interface: 110007, 110100, 40401, 40402, 11505, 11506
+## Title: Total RP 3: Raider.IO Tooltip Support (OLD)
+## Version: 1
+## Notes: This is the old install for this addon. You can safely remove the tRP3_RDotIO folder from your addons folder.
+## Author: ConineSpiritwolf
+## DefaultState: disabled
+
+## IconTexture: interface\icons\ability_creature_cursed_02.blp
+
+tRP3_RDotIO.lua
