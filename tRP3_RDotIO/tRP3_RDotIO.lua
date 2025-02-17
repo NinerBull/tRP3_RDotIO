@@ -1117,7 +1117,7 @@ end
 TRP3_API.module.registerModule({
 	name = L.ADDON_NAME,
 	description = L.ADDON_DESC,
-	version = "1.5.13b",
+	version = "1.5.13",
 	id = "trp3_riotooltips",
 	onStart = TRP3RIO_Init,
 	requiredDeps = { { "RaiderIO", "external" }, { "trp3_tooltips", 1.0 } },
