@@ -1,6 +1,6 @@
 ## Interface: 110007, 110100, 40402, 11506
 ## Title: Total RP 3: Raider.IO Tooltip Support
-## Version: 1.5.13
+## Version: 1.5.14
 ## Notes: Allows Total RP 3 to show Raider.IO information on the tooltip.
 ## Author: ConineSpiritwolf
 ## DefaultState: enabled

@@ -945,7 +945,7 @@ end);
 --Config stuff
 local TRPRIOTOOLTIPS_DROPDOWNSTUFF = {
 	{ L.DROPDOWN_IC_OOC, false },
-	{ L.DROPDOWN_OOC_ONL, true }
+	{ L.DROPDOWN_OOC_ONLY, true }
 }
 
 local TRPRIOTOOLTIPS_PREVDROPDOWN = {
@@ -1117,7 +1117,7 @@ end
 TRP3_API.module.registerModule({
 	name = L.ADDON_NAME,
 	description = L.ADDON_DESC,
-	version = "1.5.13",
+	version = "1.5.14",
 	id = "trp3_riotooltips",
 	onStart = TRP3RIO_Init,
 	requiredDeps = { { "RaiderIO", "external" }, { "trp3_tooltips", 1.0 } },
