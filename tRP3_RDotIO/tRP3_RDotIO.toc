@@ -1,4 +1,4 @@
-## Interface: 110007, 110100, 40402, 11506
+## Interface: 110100, 40402, 11506
 ## Title: Total RP 3: Raider.IO Tooltip Support
 ## Version: 1.5.14
 ## Notes: Allows Total RP 3 to show Raider.IO information on the tooltip.
@@ -21,8 +21,8 @@
 ## Category-esES: Juego de rol
 ## Category-esMX: Juego de rol
 ## Category-frFR: Jeu de rôle
-## Category-itIT:
-## Category-koKR:
+## Category-itIT: Gioco di Ruolo
+## Category-koKR: 롤플레잉
 ## Category-ptBR: Interpretação de Papel
 ## Category-ruRU: Ролевая игра
 ## Category-zhCN: 角色扮演
