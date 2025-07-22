@@ -10,7 +10,7 @@ By default, Raider.IO's original tooltip formatting will be used.
 Alternatively, you can enable a minified tooltip, which contains only Mythic+ Rating and Raid Progress, in order to not bloat the tooltip too much.
 
 ## Compatibility
-* **The War Within** - 11.1.7
+* **The War Within** - 11.2.0
 * **MoP Classic** - 5.5.0
 * **Classic Era** - 1.15.7
 
