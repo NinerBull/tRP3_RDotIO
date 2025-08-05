@@ -888,14 +888,6 @@ TRP3RIO_Frame:SetScript("OnEvent", function(self, event, arg1, arg2)
 			
 	end
 	
-	if event == "PLAYER_ENTERING_WORLD" then
-	
-		--[[if (C_AddOns.DoesAddOnExist("tRP3_RDotIO")) then
-			C_AddOns.DisableAddOn("tRP3_RDotIO")
-		end]]
-	 
-	end
-	
 	--[[
 	if event == "MODIFIER_STATE_CHANGED" then
 	
@@ -956,7 +948,7 @@ local TRPRIOTOOLTIPS_PREVDROPDOWN = {
 
 if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 
-TRP3RIOTooltipsConfigElements = {
+	TRP3RIOTooltipsConfigElements = {
 			{
 				inherit = "TRP3_ConfigButton",
 				title = L.CONFIG_TITLE,
@@ -1056,7 +1048,7 @@ TRP3RIOTooltipsConfigElements = {
 				dependentOnOptions = { (TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE and TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP) },
 			}
 			
-}
+	}
 
 else
 
@@ -1102,13 +1094,6 @@ end
 		elements = TRP3RIOTooltipsConfigElements
 	
 	});
-
-
-
-
-
-
-
 
 end
 
