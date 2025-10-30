@@ -1,5 +1,5 @@
 # Total RP 3: Raider.IO Tooltip Support
-An addon for World of Warcraft - The War Within, Cataclysm Classic and Classic Era!
+An addon for World of Warcraft - The War Within, MoP Classic and Classic Era!
 
 ![Info Img](https://cdn-wow.mmoui.com/preview/pvw75796.jpg)
 
@@ -10,9 +10,9 @@ By default, Raider.IO's original tooltip formatting will be used.
 Alternatively, you can enable a minified tooltip, which contains only Mythic+ Rating and Raid Progress, in order to not bloat the tooltip too much.
 
 ## Compatibility
-* **The War Within** - 11.2.0
-* **MoP Classic** - 5.5.0
-* **Classic Era** - 1.15.7
+* **The War Within** - 11.2.7
+* **MoP Classic** - 5.5.2
+* **Classic Era** - 1.15.8
 
 
 This addon **requires** both [Total RP 3](https://github.com/Total-RP/Total-RP-3) and [Raider.IO](https://github.com/RaiderIO/raiderio-addon) to be installed.

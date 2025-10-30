@@ -1,4 +1,4 @@
-## Interface: 110205, 50501, 30405, 11507
+## Interface: 110207, 110205, 50502, 30405, 11508
 ## Title: Total RP 3: Raider.IO Tooltip Support
 ## Version: @project-version@
 ## Notes: Allows Total RP 3 to show Raider.IO information on the tooltip.
