@@ -11,8 +11,8 @@ Alternatively, you can enable a minified tooltip, which contains only Mythic+ Ra
 
 ## Compatibility
 * **The War Within** - 11.2.7
-* **MoP Classic** - 5.5.2
-* **Classic Era** - 1.15.8
+* **MoP Classic** - 5.5.3
+* **Classic Era** - 2.5.5
 
 
 This addon **requires** both [Total RP 3](https://github.com/Total-RP/Total-RP-3) and [Raider.IO](https://github.com/RaiderIO/raiderio-addon) to be installed.
