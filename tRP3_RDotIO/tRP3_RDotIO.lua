@@ -861,9 +861,10 @@ TRP3_API.module.registerModule({
 
 
 -- Slash Command
-function TRP3RIO_Frame.OpenConfig()
+function TRP3RIO_Frame:OpenConfig()
 	TRP3_API.navigation.openMainFrame();
-	TRP3_API.navigation.page.setPage("main_config_aaa_general");
+	--TRP3_API.navigation.page.setPage("main_config_aaa_general");
+	TRP3_API.navigation.page.setPage("trp3_riotooltips_config");
 	TRP3_API.navigation.page.setPage("trp3_riotooltips_config");
 end
 
@@ -871,7 +872,7 @@ TRP3RIO_Frame.OpenConfigCommand = {
 	id = "rio",
 	helpLine = " ".. L.ADCOM_HELP,
 	handler = function()
-		TRP3RIO_Frame.OpenConfig();
+		TRP3RIO_Frame:OpenConfig();
 	end,
 }
 

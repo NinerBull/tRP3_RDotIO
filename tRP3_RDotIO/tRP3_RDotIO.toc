@@ -7,13 +7,12 @@
 ## RequiredDeps: totalRP3, RaiderIO
 ## Group: totalRP3
 
+## IconTexture: Interface\Icons\Achievement_dungeon_heroic_gloryoftheraider.blp
 ## X-Category: Tooltip, Roleplay
 ## X-Website: https://github.com/NinerBull/tRP3_RDotIO
 ## X-Curse-Project-ID: 316956
 ## X-WoWI-ID: 25708
 ## X-Wago-ID: v63o5o6b
-
-## IconTexture: Interface\Icons\Achievement_dungeon_heroic_gloryoftheraider.blp
 
 ## Category: Roleplay
 ## Category-enUS: Roleplay
