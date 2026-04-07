@@ -13,7 +13,6 @@ https://github.com/RaiderIO/raiderio-addon
 
 local _, L = ...;
 
-
 local TRP3RIO_Frame = CreateFrame("Frame")
 TRP3RIO_Frame:RegisterEvent("PLAYER_LOGIN")
 TRP3RIO_Frame:RegisterEvent("PLAYER_LOGOUT")
@@ -21,32 +20,11 @@ TRP3RIO_Frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 TRP3RIO_Frame:RegisterEvent("MODIFIER_STATE_CHANGED")
 
 
-
 TRP3RIO_Frame.IgnoreTooltip = false
 TRP3RIO_Frame.LoadedStuff = false
 
-
 TRP3RIO_Frame.DividerGraphic = CreateSimpleTextureMarkup("interface\\friendsframe\\ui-friendsframe-onlinedivider", 320, 4)
 TRP3RIO_Frame.OldSeasonColor = CreateColorFromHexString("FF555555")
-
--- Debug function, prints LUA tables
-function TRP3RIO_Frame.TPrint(t, s)
-	for k, v in pairs(t) do
-		local kfmt = '["' .. tostring(k) ..'"]'
-		if type(k) ~= 'string' then
-			kfmt = '[' .. k .. ']'
-		end
-		local vfmt = '"'.. tostring(v) ..'"'
-		if type(v) == 'table' then
-			TRP3RIO_Frame.TPrint(v, (s or '')..kfmt)
-		else
-			if type(v) ~= 'string' then
-				vfmt = tostring(v)
-			end
-			print(type(t)..(s or '')..kfmt..' = '..vfmt)
-		end
-	end
-end
 
 
 --Fixes inconsistent font sizes
@@ -69,50 +47,46 @@ function TRP3RIO_Frame.FixFonts(small)
 end
 
 
--- Variable for TPR3 config
-
-TRPRIOTOOLTIPS = select(2, ...);
-
 function TRP3RIO_Frame.Init()
 		
 	-- TRP3 Variables
 
-	TRPRIOTOOLTIPS.CONFIG = {};
+	TRP3RIO_Frame.Config = {};
 
-	TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC = "trp3_riotooltips_hide_tooltips_ic";
-	TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER = "trp3_riotooltips_enable_divider";
-	TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP = "trp3_riotooltips_enable_mini_tooltip";
-	TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_TITLE = "trp3_riotooltips_enable_title";
-	TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE = "trp3_riotooltips_enable_score";
-	TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE = "trp3_riotooltips_enable_raid";
-	TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN = "trp3_riotooltips_enable_score_main";
-	TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE_MAIN = "trp3_riotooltips_enable_raid_main";
-	TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE = "trp3_riotooltips_enable_prev_score";
+	TRP3RIO_Frame.Config.HIDE_RIO_TOOLTIPS_IC = "trp3_riotooltips_hide_tooltips_ic";
+	TRP3RIO_Frame.Config.ENABLE_DIVIDER = "trp3_riotooltips_enable_divider";
+	TRP3RIO_Frame.Config.ENABLE_MINI_TOOLTIP = "trp3_riotooltips_enable_mini_tooltip";
+	TRP3RIO_Frame.Config.ENABLE_RIO_TITLE = "trp3_riotooltips_enable_title";
+	TRP3RIO_Frame.Config.ENABLE_RIO_SCORE = "trp3_riotooltips_enable_score";
+	TRP3RIO_Frame.Config.ENABLE_RAID_SCORE = "trp3_riotooltips_enable_raid";
+	TRP3RIO_Frame.Config.ENABLE_RIO_SCORE_MAIN = "trp3_riotooltips_enable_score_main";
+	TRP3RIO_Frame.Config.ENABLE_RAID_SCORE_MAIN = "trp3_riotooltips_enable_raid_main";
+	TRP3RIO_Frame.Config.ENABLE_PREV_RIO_SCORE = "trp3_riotooltips_enable_prev_score";
 
-	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC, false);
-	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER, false);
-	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP, false);
-	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_TITLE, true);
-	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE, true);
-	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE, true);
-	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN, true);
-	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE_MAIN, true);
-	TRP3_API.configuration.registerConfigKey(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE, 3);
+	TRP3_API.configuration.registerConfigKey(TRP3RIO_Frame.Config.HIDE_RIO_TOOLTIPS_IC, false);
+	TRP3_API.configuration.registerConfigKey(TRP3RIO_Frame.Config.ENABLE_DIVIDER, false);
+	TRP3_API.configuration.registerConfigKey(TRP3RIO_Frame.Config.ENABLE_MINI_TOOLTIP, false);
+	TRP3_API.configuration.registerConfigKey(TRP3RIO_Frame.Config.ENABLE_RIO_TITLE, true);
+	TRP3_API.configuration.registerConfigKey(TRP3RIO_Frame.Config.ENABLE_RIO_SCORE, true);
+	TRP3_API.configuration.registerConfigKey(TRP3RIO_Frame.Config.ENABLE_RAID_SCORE, true);
+	TRP3_API.configuration.registerConfigKey(TRP3RIO_Frame.Config.ENABLE_RIO_SCORE_MAIN, true);
+	TRP3_API.configuration.registerConfigKey(TRP3RIO_Frame.Config.ENABLE_RAID_SCORE_MAIN, true);
+	TRP3_API.configuration.registerConfigKey(TRP3RIO_Frame.Config.ENABLE_PREV_RIO_SCORE, 3);
 	
 	
 	-- Upgrade from older version
-	if (type(TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE)) ~= "number") then
-		if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE) == true) then
-			TRP3_API.configuration.setValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE, 3)
+	if (type(TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_PREV_RIO_SCORE)) ~= "number") then
+		if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_PREV_RIO_SCORE) == true) then
+			TRP3_API.configuration.setValue(TRP3RIO_Frame.Config.ENABLE_PREV_RIO_SCORE, 3)
 		else
-			TRP3_API.configuration.setValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE, 1)
+			TRP3_API.configuration.setValue(TRP3RIO_Frame.Config.ENABLE_PREV_RIO_SCORE, 1)
 		end
 	end
 
 	-- Don't use Minified Tooltip in Classic
 	if (WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE) then
-		TRP3_API.configuration.setValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP, false)
-		TRP3_API.configuration.setValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER, false);
+		TRP3_API.configuration.setValue(TRP3RIO_Frame.Config.ENABLE_MINI_TOOLTIP, false)
+		TRP3_API.configuration.setValue(TRP3RIO_Frame.Config.ENABLE_DIVIDER, false);
 	end
 	
 		
@@ -151,7 +125,7 @@ function TRP3RIO_Frame.Init()
 					--local thisPlayerToLookUp = "X-Y"
 					
 					--Check if IC/OOC and if disable when IC is enabled
-					if (TRP3_API.dashboard.isPlayerIC() and TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC)) then
+					if (TRP3_API.dashboard.isPlayerIC() and TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.HIDE_RIO_TOOLTIPS_IC)) then
 						--Hide tooltips, user is IC and hiding IC tooltips
 						showTooltip = false
 					end
@@ -182,7 +156,7 @@ function TRP3RIO_Frame.Init()
 					tblRaidProgressPrev = nil
 									
 					
-					if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP)) then
+					if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_MINI_TOOLTIP)) then
 					
 						if showTooltip then
 							
@@ -200,7 +174,7 @@ function TRP3RIO_Frame.Init()
 									
 									-- MPLUS Info
 									
-									if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE)) then
+									if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_RIO_SCORE)) then
 										
 										if (thisPlayerTables['mythicKeystoneProfile']) then
 											if (thisPlayerTables['mythicKeystoneProfile']['hasRenderableData'] == true) then
@@ -230,7 +204,7 @@ function TRP3RIO_Frame.Init()
 													end
 
 													
-													if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN)) then
+													if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_RIO_SCORE_MAIN)) then
 														
 														-- Main
 														varPlayerMainScore = 0
@@ -269,7 +243,7 @@ function TRP3RIO_Frame.Init()
 										
 										-- RAID INFO
 									
-										if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE)) then
+										if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_RAID_SCORE)) then
 												
 											if (thisPlayerTables['raidProfile']) then
 												
@@ -404,14 +378,14 @@ function TRP3RIO_Frame.Init()
 								-- Check to see if any of the strings have data in them. If so, show the RIO stuff.
 								if ((varPlayerScore and varPlayerScore ~= 0) or (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0) or (varPlayerMainScore and varPlayerMainScore ~= 0 and varPlayerMainScore > varPlayerScore) or (varPlayerMainScorePrev ~= 0) or (tblRaidProgress)) then
 									
-									if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER)) then
+									if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_DIVIDER)) then
 										TRP3_CharacterTooltip:AddDoubleLine(" ", " ")
 										TRP3_CharacterTooltip:AddLine(TRP3RIO_Frame.DividerGraphic)
 									end	
 									
 									TRP3_CharacterTooltip:AddDoubleLine(" ", " ")
 									
-									if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_TITLE)) then					
+									if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_RIO_TITLE)) then					
 										TRP3_CharacterTooltip:AddDoubleLine(L.RAIDER_IO, " ", TRP3RIO_TitleColor.r, TRP3RIO_TitleColor.g, TRP3RIO_TitleColor.b)
 									end
 									
@@ -424,13 +398,13 @@ function TRP3RIO_Frame.Init()
 										end
 										
 										varMPlusPrevTextExtra = ""
-										if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE) ~= 1) then
+										if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_PREV_RIO_SCORE) ~= 1) then
 											if (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0) then
 												varMPlusPrevTextExtra = TRP3RIO_Frame.OldSeasonColor:WrapTextInColorCode("(S" ..  varPlayerScorePrevSeason .. ": " .. varPlayerScorePrevNum .. ")")
 											end
 										end
 										
-										if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE) == 3) then
+										if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_PREV_RIO_SCORE) == 3) then
 											varMPlusTextExtra = varMPlusTextExtra .. " " .. varMPlusPrevTextExtra
 										else
 											varMPlusTextExtra = varMPlusPrevTextExtra .. " " .. varMPlusTextExtra
@@ -536,13 +510,13 @@ function TRP3RIO_Frame.Init()
 										end
 										
 										varMPlusMainPrevTextExtra = ""
-										if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE) ~= 1) then
+										if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_PREV_RIO_SCORE) ~= 1) then
 											if (varPlayerMainScorePrevNum and varPlayerMainScorePrevNum ~= 0) then
 												varMPlusMainPrevTextExtra = TRP3RIO_Frame.OldSeasonColor:WrapTextInColorCode("(S" ..  varPlayerMainScorePrevSeason .. ": " .. varPlayerMainScorePrevNum ..")")
 											end
 										end
 										
-										if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE) == 3) then
+										if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_PREV_RIO_SCORE) == 3) then
 											varMPlusMainTextExtra = varMPlusMainTextExtra .. " " .. varMPlusMainPrevTextExtra
 										else
 											varMPlusMainTextExtra = varMPlusMainPrevTextExtra .. " " .. varMPlusMainTextExtra
@@ -554,7 +528,7 @@ function TRP3RIO_Frame.Init()
 										
 									-- Main's Raid Progress
 									if(tblRaidProgress) then						
-										if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE_MAIN)) then
+										if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_RAID_SCORE_MAIN)) then
 											
 											if(tblRaidProgress["main"]) then
 												-- loop through main progress
@@ -630,14 +604,14 @@ function TRP3RIO_Frame.Init()
 							end
 						end
 						
-						if (TRP3_API.dashboard.isPlayerIC() and TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC)) then
+						if (TRP3_API.dashboard.isPlayerIC() and TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.HIDE_RIO_TOOLTIPS_IC)) then
 							--hide tooltips, user is IC and hiding IC tooltips
 							showThisTooltip = false
 						end
 					
 						if (showThisTooltip == true) then
 						
-							if (TRP3_API.configuration.getValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER)) then
+							if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_DIVIDER)) then
 								TRP3_CharacterTooltip:AddLine(" ")
 								TRP3_CharacterTooltip:AddLine(TRP3RIO_Frame.DividerGraphic)
 							end	
@@ -700,7 +674,7 @@ function TRP3RIO_Frame.Init()
 
 	if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 
-		TRP3RIOTooltipsConfigElements = {
+		TRP3RIO_Frame.ConfigElements = {
 				{
 					inherit = "TRP3_ConfigButton",
 					title = L.CONFIG_TITLE,
@@ -724,9 +698,9 @@ function TRP3RIO_Frame.Init()
 					title = L.CONFIG_SHOWRIO_TITLE,
 					help = L.CONFIG_SHOWRIO_HELP,
 					listContent = TRPRIOTOOLTIPS_DROPDOWNSTUFF,
-					configKey = TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC,
+					configKey = TRP3RIO_Frame.Config.HIDE_RIO_TOOLTIPS_IC,
 					listCallback = function(value)
-						TRP3_API.configuration.setValue(TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC, value)
+						TRP3_API.configuration.setValue(TRP3RIO_Frame.Config.HIDE_RIO_TOOLTIPS_IC, value)
 					end,
 
 				},
@@ -734,13 +708,13 @@ function TRP3RIO_Frame.Init()
 					inherit = "TRP3_ConfigCheck",
 					title = L.CONFIG_DIVGRAPHIC_TITLE,
 					help = L.CONFIG_DIVGRAPHIC_HELP,
-					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_DIVIDER
+					configKey = TRP3RIO_Frame.Config.ENABLE_DIVIDER
 				},
 				{
 					inherit = "TRP3_ConfigCheck",
 					title = L.CONFIG_MINIFIED_TITLE,
 					help = L.CONFIG_MINIFIED_HELP,
-					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP
+					configKey = TRP3RIO_Frame.Config.ENABLE_MINI_TOOLTIP
 				},
 				
 				{
@@ -755,26 +729,26 @@ function TRP3RIO_Frame.Init()
 					inherit = "TRP3_ConfigCheck",
 					title = L.CONFIG_MINIFIED_SHOWRIOTITLE_TITLE,
 					help = L.CONFIG_MINIFIED_SHOWRIOTITLE_HELP,
-					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_TITLE,
-					dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
+					configKey = TRP3RIO_Frame.Config.ENABLE_RIO_TITLE,
+					dependentOnOptions = { TRP3RIO_Frame.Config.ENABLE_MINI_TOOLTIP },
 				},
 				{
 					inherit = "TRP3_ConfigCheck",
 					title =  L.CONFIG_MINIFIED_SHOWMPLUS_TITLE,
 					help = L.CONFIG_MINIFIED_SHOWMPLUS_HELP,
-					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE,
-					dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
+					configKey = TRP3RIO_Frame.Config.ENABLE_RIO_SCORE,
+					dependentOnOptions = { TRP3RIO_Frame.Config.ENABLE_MINI_TOOLTIP },
 				},
 				{
 					inherit = "TRP3_ConfigDropDown",
 					widgetName = "trp3_riotooltips_enable_prev_score",
 					title = L.CONFIG_MINIFIED_SHOWPREVMPLUS_TITLE .. " " .. LIGHTGRAY_FONT_COLOR:WrapTextInColorCode("(*)"),
 					help = L.CONFIG_MINIFIED_SHOWPREVMPLUS_HELP,
-					dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE, TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
+					dependentOnOptions = { TRP3RIO_Frame.Config.ENABLE_RIO_SCORE, TRP3RIO_Frame.Config.ENABLE_MINI_TOOLTIP },
 					listContent = TRPRIOTOOLTIPS_PREVDROPDOWN,
-					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE,
+					configKey = TRP3RIO_Frame.Config.ENABLE_PREV_RIO_SCORE,
 					listCallback = function(value)
-						TRP3_API.configuration.setValue(TRPRIOTOOLTIPS.CONFIG.ENABLE_PREV_RIO_SCORE, value)
+						TRP3_API.configuration.setValue(TRP3RIO_Frame.Config.ENABLE_PREV_RIO_SCORE, value)
 					end,
 
 				},
@@ -782,29 +756,29 @@ function TRP3RIO_Frame.Init()
 					inherit = "TRP3_ConfigCheck",
 					title = L.CONFIG_MINIFIED_RAIDPROG_TITLE,
 					help = L.CONFIG_MINIFIED_RAIDPROG_HELP,
-					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE,
-					dependentOnOptions = { TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP },
+					configKey = TRP3RIO_Frame.Config.ENABLE_RAID_SCORE,
+					dependentOnOptions = { TRP3RIO_Frame.Config.ENABLE_MINI_TOOLTIP },
 				},
 				{
 					inherit = "TRP3_ConfigCheck",
 					title = LORE_TEXT_BODY_COLOR:WrapTextInColorCode(L.CONFIG_MINIFIED_MAINMPLUS_TITLE),
 					help = L.CONFIG_MINIFIED_MAINMPLUS_HELP,
-					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE_MAIN,
-					dependentOnOptions = { (TRPRIOTOOLTIPS.CONFIG.ENABLE_RIO_SCORE and TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP) },
+					configKey = TRP3RIO_Frame.Config.ENABLE_RIO_SCORE_MAIN,
+					dependentOnOptions = { (TRP3RIO_Frame.Config.ENABLE_RIO_SCORE and TRP3RIO_Frame.Config.ENABLE_MINI_TOOLTIP) },
 				},
 				{
 					inherit = "TRP3_ConfigCheck",
 					title = LORE_TEXT_BODY_COLOR:WrapTextInColorCode(L.CONFIG_MINIFIED_RAIDPROG_TITLE),
 					help = L.CONFIG_MINIFIED_RAIDPROG_HELP,
-					configKey = TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE_MAIN,
-					dependentOnOptions = { (TRPRIOTOOLTIPS.CONFIG.ENABLE_RAID_SCORE and TRPRIOTOOLTIPS.CONFIG.ENABLE_MINI_TOOLTIP) },
+					configKey = TRP3RIO_Frame.Config.ENABLE_RAID_SCORE_MAIN,
+					dependentOnOptions = { (TRP3RIO_Frame.Config.ENABLE_RAID_SCORE and TRP3RIO_Frame.Config.ENABLE_MINI_TOOLTIP) },
 				}
 				
 		}
 
 	else
 
-		TRP3RIOTooltipsConfigElements = {
+		TRP3RIO_Frame.ConfigElements = {
 				{
 					inherit = "TRP3_ConfigButton",
 					title = L.CONFIG_TITLE,
@@ -828,9 +802,9 @@ function TRP3RIO_Frame.Init()
 					title = L.CONFIG_SHOWRIO_TITLE,
 					help = L.CONFIG_SHOWRIO_HELP,
 					listContent = TRPRIOTOOLTIPS_DROPDOWNSTUFF,
-					configKey = TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC,
+					configKey = TRP3RIO_Frame.Config.HIDE_RIO_TOOLTIPS_IC,
 					listCallback = function(value)
-						TRP3_API.configuration.setValue(TRPRIOTOOLTIPS.CONFIG.HIDE_RIO_TOOLTIPS_IC, value)
+						TRP3_API.configuration.setValue(TRP3RIO_Frame.Config.HIDE_RIO_TOOLTIPS_IC, value)
 					end,
 
 				}
@@ -843,7 +817,7 @@ function TRP3RIO_Frame.Init()
 		id = "trp3_riotooltips_config",
 		menuText = L.RAIDER_IO,
 		pageText = L.ADDON_NAME,
-		elements = TRP3RIOTooltipsConfigElements
+		elements = TRP3RIO_Frame.ConfigElements
 	});
 
 end --eo Init
