@@ -132,28 +132,28 @@ function TRP3RIO_Frame.Init()
 				
 					
 					--unset variables
-					varPlayerScore = ""
-					varPlayerScorePrevNum = ""
-					varPlayerMainScore = ""
-					varPlayerMainScorePrev = ""
-					strRaidProgress = ""
-					strRaidMainProgress = ""
-					strRaidProgressPrevious = ""
-					varRaidName = ""
-					varRaidNamePrevious = ""
-					varPlayerScore = 0
-					varPlayerScoreNum = 0
-					varPlayerScorePrev = 0
-					varPlayerScorePrevNum = 0
-					varPlayerMainScore = 0
-					varPlayerMainScorePrev = 0
-					varPlayerMainScorePrevNum = 0
-					varRaidNumNormal = 0
-					varRaidNumHeroic = 0
-					varRaidNumMythic = 0
-					tblRaidProgress = nil
-					tblRaidMainProgress = nil
-					tblRaidProgressPrev = nil
+					local varPlayerScore = ""
+					local varPlayerScorePrevNum = ""
+					local varPlayerMainScore = ""
+					local varPlayerMainScorePrev = ""
+					local strRaidProgress = ""
+					local strRaidMainProgress = ""
+					local strRaidProgressPrevious = ""
+					local varRaidName = ""
+					local varRaidNamePrevious = ""
+					local varPlayerScore = 0
+					local varPlayerScoreNum = 0
+					local varPlayerScorePrev = 0
+					local varPlayerScorePrevNum = 0
+					local varPlayerMainScore = 0
+					local varPlayerMainScorePrev = 0
+					local varPlayerMainScorePrevNum = 0
+					local varRaidNumNormal = 0
+					local varRaidNumHeroic = 0
+					local varRaidNumMythic = 0
+					local tblRaidProgress = nil
+					local tblRaidMainProgress = nil
+					local tblRaidProgressPrev = nil
 									
 					
 					if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_MINI_TOOLTIP)) then
@@ -288,8 +288,8 @@ function TRP3RIO_Frame.Init()
 																tblRaidProgress["main"][varRaidName]["thereIsScore"] = false
 															end
 															
-															varRaidType = "progress"
-															thereIsRaidProgress = false
+															local varRaidType = "progress"
+															local thereIsRaidProgress = false
 
 
 															-- Need to determine if this is current raid, prev raid, or main raid
@@ -392,12 +392,12 @@ function TRP3RIO_Frame.Init()
 									--Show M+ Score
 									if ((varPlayerScore and varPlayerScore ~= 0) or (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0)) then
 										
-										varMPlusTextExtra = ""
+										local varMPlusTextExtra = ""
 										if (varPlayerScore and varPlayerScore ~= 0) then
 											varMPlusTextExtra = varPlayerScore
 										end
 										
-										varMPlusPrevTextExtra = ""
+										local varMPlusPrevTextExtra = ""
 										if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_PREV_RIO_SCORE) ~= 1) then
 											if (varPlayerScorePrevNum and varPlayerScorePrevNum ~= 0) then
 												varMPlusPrevTextExtra = TRP3RIO_Frame.OldSeasonColor:WrapTextInColorCode("(S" ..  varPlayerScorePrevSeason .. ": " .. varPlayerScorePrevNum .. ")")
@@ -421,8 +421,8 @@ function TRP3RIO_Frame.Init()
 											
 											for k,v in pairs(tblRaidProgress["progress"]) do
 											
-												strRaidProgress = ""
-												strRaidProgressName = ""
+												local strRaidProgress = ""
+												local strRaidProgressName = ""
 												 
 												if ((tblRaidProgress["progress"][k]["thereIsScore"] == true)) then
 													-- and (tblRaidProgress["progress"][k]["obsolete"] == false)
@@ -466,8 +466,8 @@ function TRP3RIO_Frame.Init()
 
 											for k,v in pairs(tblRaidProgress["prev"]) do
 											
-												strRaidProgressPrevious = ""
-												strRaidProgressPreviousName = ""
+												local strRaidProgressPrevious = ""
+												local strRaidProgressPreviousName = ""
 												 
 												 
 												if ((tblRaidProgress["prev"][k]["thereIsScore"] == true) and (tblRaidProgress["prev"][k]["obsolete"] == false)) then
@@ -504,12 +504,12 @@ function TRP3RIO_Frame.Init()
 									-- Only show if main's score is higher than this char's score
 									if ((varPlayerMainScore and varPlayerMainScore ~= 0) and (varPlayerMainScore > varPlayerScore)) then
 										
-										varMPlusMainTextExtra = ""
+										local varMPlusMainTextExtra = ""
 										if (varPlayerMainScore and varPlayerMainScore ~= 0) then
 											varMPlusMainTextExtra = varPlayerMainScore
 										end
 										
-										varMPlusMainPrevTextExtra = ""
+										local varMPlusMainPrevTextExtra = ""
 										if (TRP3_API.configuration.getValue(TRP3RIO_Frame.Config.ENABLE_PREV_RIO_SCORE) ~= 1) then
 											if (varPlayerMainScorePrevNum and varPlayerMainScorePrevNum ~= 0) then
 												varMPlusMainPrevTextExtra = TRP3RIO_Frame.OldSeasonColor:WrapTextInColorCode("(S" ..  varPlayerMainScorePrevSeason .. ": " .. varPlayerMainScorePrevNum ..")")
@@ -535,8 +535,8 @@ function TRP3RIO_Frame.Init()
 											
 												for k,v in pairs(tblRaidProgress["main"]) do
 												
-												strRaidMainProgress = ""
-												strRaidMainProgressName = ""
+												local strRaidMainProgress = ""
+												local strRaidMainProgressName = ""
 												 
 												if ((tblRaidProgress["main"][k]["thereIsScore"] == true)) then
 													--  and (tblRaidProgress["main"][k]["obsolete"] == false)
