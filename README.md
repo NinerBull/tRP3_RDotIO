@@ -10,8 +10,8 @@ By default, Raider.IO's original tooltip formatting will be used.
 Alternatively, you can enable a minified tooltip, which contains only Mythic+ Rating and Raid Progress, in order to not bloat the tooltip too much.
 
 ## Compatibility
-* **Midnight** - 12.0.5
-* **MoP Classic** - 5.5.3
+* **Midnight** - 12.0.7
+* **MoP Classic** - 5.5.4
 * **TBC Classic** - 2.5.5
 * **Classic Era** - 1.15.8
 
