@@ -10,10 +10,10 @@ By default, Raider.IO's original tooltip formatting will be used.
 Alternatively, you can enable a minified tooltip, which contains only Mythic+ Rating and Raid Progress, in order to not bloat the tooltip too much.
 
 ## Compatibility
-* **Midnight** - 12.0.7
+* **Midnight** - 12.1.0
 * **MoP Classic** - 5.5.4
-* **TBC Classic** - 2.5.5
-* **Classic Era** - 1.15.8
+* **TBC Classic** - 2.5.6
+* **Classic Era** - 1.15.9
 
 
 This addon **requires** both [Total RP 3](https://github.com/Total-RP/Total-RP-3) and [Raider.IO](https://github.com/RaiderIO/raiderio-addon) to be installed.
